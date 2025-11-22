@@ -46,7 +46,8 @@ public class TenantResource {
 
     private final TenantQueryService tenantQueryService;
 
-    public TenantResource(TenantService tenantService, TenantRepository tenantRepository, TenantQueryService tenantQueryService) {
+    public TenantResource(TenantService tenantService, TenantRepository tenantRepository,
+            TenantQueryService tenantQueryService) {
         this.tenantService = tenantService;
         this.tenantRepository = tenantRepository;
         this.tenantQueryService = tenantQueryService;
@@ -56,7 +57,9 @@ public class TenantResource {
      * {@code POST  /tenants} : Create a new tenant.
      *
      * @param tenantDTO the tenantDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new tenantDTO, or with status {@code 400 (Bad Request)} if the tenant has already an ID.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
+     *         body the new tenantDTO, or with status {@code 400 (Bad Request)} if
+     *         the tenant has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
@@ -67,26 +70,50 @@ public class TenantResource {
         }
         TenantDTO result = tenantService.save(tenantDTO);
         return ResponseEntity
-            .created(new URI("/api/tenants/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .created(new URI("/api/tenants/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
+                        result.getId().toString()))
+                .body(result);
+    }
+
+    /**
+     * {@code POST  /register-tenant} : Register a new tenant.
+     *
+     * @param tenantRegistrationDTO the tenant registration DTO.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with
+     *         body the new tenantDTO.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/register-tenant")
+    public ResponseEntity<TenantDTO> registerTenant(
+            @Valid @RequestBody com.crm.service.dto.TenantRegistrationDTO tenantRegistrationDTO)
+            throws URISyntaxException {
+        log.debug("REST request to register Tenant : {}", tenantRegistrationDTO);
+        TenantDTO result = tenantService.registerTenant(tenantRegistrationDTO);
+        return ResponseEntity
+                .created(new URI("/api/tenants/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
+                        result.getId().toString()))
+                .body(result);
     }
 
     /**
      * {@code PUT  /tenants/:id} : Updates an existing tenant.
      *
-     * @param id the id of the tenantDTO to save.
+     * @param id        the id of the tenantDTO to save.
      * @param tenantDTO the tenantDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated tenantDTO,
-     * or with status {@code 400 (Bad Request)} if the tenantDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the tenantDTO couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the updated tenantDTO,
+     *         or with status {@code 400 (Bad Request)} if the tenantDTO is not
+     *         valid,
+     *         or with status {@code 500 (Internal Server Error)} if the tenantDTO
+     *         couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/{id}")
     public ResponseEntity<TenantDTO> updateTenant(
-        @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody TenantDTO tenantDTO
-    ) throws URISyntaxException {
+            @PathVariable(value = "id", required = false) final Long id,
+            @Valid @RequestBody TenantDTO tenantDTO) throws URISyntaxException {
         log.debug("REST request to update Tenant : {}, {}", id, tenantDTO);
         if (tenantDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -101,27 +128,31 @@ public class TenantResource {
 
         TenantDTO result = tenantService.update(tenantDTO);
         return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, tenantDTO.getId().toString()))
-            .body(result);
+                .ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME,
+                        tenantDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * {@code PATCH  /tenants/:id} : Partial updates given fields of an existing tenant, field will ignore if it is null
+     * {@code PATCH  /tenants/:id} : Partial updates given fields of an existing
+     * tenant, field will ignore if it is null
      *
-     * @param id the id of the tenantDTO to save.
+     * @param id        the id of the tenantDTO to save.
      * @param tenantDTO the tenantDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated tenantDTO,
-     * or with status {@code 400 (Bad Request)} if the tenantDTO is not valid,
-     * or with status {@code 404 (Not Found)} if the tenantDTO is not found,
-     * or with status {@code 500 (Internal Server Error)} if the tenantDTO couldn't be updated.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the updated tenantDTO,
+     *         or with status {@code 400 (Bad Request)} if the tenantDTO is not
+     *         valid,
+     *         or with status {@code 404 (Not Found)} if the tenantDTO is not found,
+     *         or with status {@code 500 (Internal Server Error)} if the tenantDTO
+     *         couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<TenantDTO> partialUpdateTenant(
-        @PathVariable(value = "id", required = false) final Long id,
-        @NotNull @RequestBody TenantDTO tenantDTO
-    ) throws URISyntaxException {
+            @PathVariable(value = "id", required = false) final Long id,
+            @NotNull @RequestBody TenantDTO tenantDTO) throws URISyntaxException {
         log.debug("REST request to partial update Tenant partially : {}, {}", id, tenantDTO);
         if (tenantDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -137,9 +168,8 @@ public class TenantResource {
         Optional<TenantDTO> result = tenantService.partialUpdate(tenantDTO);
 
         return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, tenantDTO.getId().toString())
-        );
+                result,
+                HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, tenantDTO.getId().toString()));
     }
 
     /**
@@ -147,17 +177,18 @@ public class TenantResource {
      *
      * @param pageable the pagination information.
      * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of tenants in body.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
+     *         of tenants in body.
      */
     @GetMapping("")
     public ResponseEntity<List<TenantDTO>> getAllTenants(
-        TenantCriteria criteria,
-        @org.springdoc.core.annotations.ParameterObject Pageable pageable
-    ) {
+            TenantCriteria criteria,
+            @org.springdoc.core.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get Tenants by criteria: {}", criteria);
 
         Page<TenantDTO> page = tenantQueryService.findByCriteria(criteria, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        HttpHeaders headers = PaginationUtil
+                .generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
@@ -165,7 +196,8 @@ public class TenantResource {
      * {@code GET  /tenants/count} : count all the tenants.
      *
      * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count
+     *         in body.
      */
     @GetMapping("/count")
     public ResponseEntity<Long> countTenants(TenantCriteria criteria) {
@@ -177,7 +209,8 @@ public class TenantResource {
      * {@code GET  /tenants/:id} : get the "id" tenant.
      *
      * @param id the id of the tenantDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the tenantDTO, or with status {@code 404 (Not Found)}.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the tenantDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
     public ResponseEntity<TenantDTO> getTenant(@PathVariable("id") Long id) {
@@ -197,8 +230,8 @@ public class TenantResource {
         log.debug("REST request to delete Tenant : {}", id);
         tenantService.delete(id);
         return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-            .build();
+                .noContent()
+                .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+                .build();
     }
 }

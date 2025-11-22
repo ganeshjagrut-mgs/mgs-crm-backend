@@ -96,12 +96,12 @@ class TenantResourceIT {
      */
     public static Tenant createEntity(EntityManager em) {
         Tenant tenant = new Tenant()
-            .companyName(DEFAULT_COMPANY_NAME)
-            .contactPerson(DEFAULT_CONTACT_PERSON)
-            .logo(DEFAULT_LOGO)
-            .website(DEFAULT_WEBSITE)
-            .registrationNumber(DEFAULT_REGISTRATION_NUMBER)
-            .subId(DEFAULT_SUB_ID);
+                .companyName(DEFAULT_COMPANY_NAME)
+                .contactPerson(DEFAULT_CONTACT_PERSON)
+                .logo(DEFAULT_LOGO)
+                .website(DEFAULT_WEBSITE)
+                .registrationNumber(DEFAULT_REGISTRATION_NUMBER)
+                .subId(DEFAULT_SUB_ID);
         return tenant;
     }
 
@@ -113,12 +113,12 @@ class TenantResourceIT {
      */
     public static Tenant createUpdatedEntity(EntityManager em) {
         Tenant tenant = new Tenant()
-            .companyName(UPDATED_COMPANY_NAME)
-            .contactPerson(UPDATED_CONTACT_PERSON)
-            .logo(UPDATED_LOGO)
-            .website(UPDATED_WEBSITE)
-            .registrationNumber(UPDATED_REGISTRATION_NUMBER)
-            .subId(UPDATED_SUB_ID);
+                .companyName(UPDATED_COMPANY_NAME)
+                .contactPerson(UPDATED_CONTACT_PERSON)
+                .logo(UPDATED_LOGO)
+                .website(UPDATED_WEBSITE)
+                .registrationNumber(UPDATED_REGISTRATION_NUMBER)
+                .subId(UPDATED_SUB_ID);
         return tenant;
     }
 
@@ -134,8 +134,9 @@ class TenantResourceIT {
         // Create the Tenant
         TenantDTO tenantDTO = tenantMapper.toDto(tenant);
         restTenantMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
-            .andExpect(status().isCreated());
+                .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
+                .andExpect(status().isCreated());
 
         // Validate the Tenant in the database
         List<Tenant> tenantList = tenantRepository.findAll();
@@ -160,8 +161,9 @@ class TenantResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restTenantMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
-            .andExpect(status().isBadRequest());
+                .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
+                .andExpect(status().isBadRequest());
 
         // Validate the Tenant in the database
         List<Tenant> tenantList = tenantRepository.findAll();
@@ -179,8 +181,9 @@ class TenantResourceIT {
         TenantDTO tenantDTO = tenantMapper.toDto(tenant);
 
         restTenantMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
-            .andExpect(status().isBadRequest());
+                .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
+                .andExpect(status().isBadRequest());
 
         List<Tenant> tenantList = tenantRepository.findAll();
         assertThat(tenantList).hasSize(databaseSizeBeforeTest);
@@ -194,16 +197,16 @@ class TenantResourceIT {
 
         // Get all the tenantList
         restTenantMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(tenant.getId().intValue())))
-            .andExpect(jsonPath("$.[*].companyName").value(hasItem(DEFAULT_COMPANY_NAME)))
-            .andExpect(jsonPath("$.[*].contactPerson").value(hasItem(DEFAULT_CONTACT_PERSON)))
-            .andExpect(jsonPath("$.[*].logo").value(hasItem(DEFAULT_LOGO)))
-            .andExpect(jsonPath("$.[*].website").value(hasItem(DEFAULT_WEBSITE)))
-            .andExpect(jsonPath("$.[*].registrationNumber").value(hasItem(DEFAULT_REGISTRATION_NUMBER)))
-            .andExpect(jsonPath("$.[*].subId").value(hasItem(DEFAULT_SUB_ID)));
+                .perform(get(ENTITY_API_URL + "?sort=id,desc"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(tenant.getId().intValue())))
+                .andExpect(jsonPath("$.[*].companyName").value(hasItem(DEFAULT_COMPANY_NAME)))
+                .andExpect(jsonPath("$.[*].contactPerson").value(hasItem(DEFAULT_CONTACT_PERSON)))
+                .andExpect(jsonPath("$.[*].logo").value(hasItem(DEFAULT_LOGO)))
+                .andExpect(jsonPath("$.[*].website").value(hasItem(DEFAULT_WEBSITE)))
+                .andExpect(jsonPath("$.[*].registrationNumber").value(hasItem(DEFAULT_REGISTRATION_NUMBER)))
+                .andExpect(jsonPath("$.[*].subId").value(hasItem(DEFAULT_SUB_ID)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -231,16 +234,16 @@ class TenantResourceIT {
 
         // Get the tenant
         restTenantMockMvc
-            .perform(get(ENTITY_API_URL_ID, tenant.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(tenant.getId().intValue()))
-            .andExpect(jsonPath("$.companyName").value(DEFAULT_COMPANY_NAME))
-            .andExpect(jsonPath("$.contactPerson").value(DEFAULT_CONTACT_PERSON))
-            .andExpect(jsonPath("$.logo").value(DEFAULT_LOGO))
-            .andExpect(jsonPath("$.website").value(DEFAULT_WEBSITE))
-            .andExpect(jsonPath("$.registrationNumber").value(DEFAULT_REGISTRATION_NUMBER))
-            .andExpect(jsonPath("$.subId").value(DEFAULT_SUB_ID));
+                .perform(get(ENTITY_API_URL_ID, tenant.getId()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.id").value(tenant.getId().intValue()))
+                .andExpect(jsonPath("$.companyName").value(DEFAULT_COMPANY_NAME))
+                .andExpect(jsonPath("$.contactPerson").value(DEFAULT_CONTACT_PERSON))
+                .andExpect(jsonPath("$.logo").value(DEFAULT_LOGO))
+                .andExpect(jsonPath("$.website").value(DEFAULT_WEBSITE))
+                .andExpect(jsonPath("$.registrationNumber").value(DEFAULT_REGISTRATION_NUMBER))
+                .andExpect(jsonPath("$.subId").value(DEFAULT_SUB_ID));
     }
 
     @Test
@@ -280,7 +283,8 @@ class TenantResourceIT {
         // Initialize the database
         tenantRepository.saveAndFlush(tenant);
 
-        // Get all the tenantList where companyName in DEFAULT_COMPANY_NAME or UPDATED_COMPANY_NAME
+        // Get all the tenantList where companyName in DEFAULT_COMPANY_NAME or
+        // UPDATED_COMPANY_NAME
         defaultTenantShouldBeFound("companyName.in=" + DEFAULT_COMPANY_NAME + "," + UPDATED_COMPANY_NAME);
 
         // Get all the tenantList where companyName equals to UPDATED_COMPANY_NAME
@@ -319,10 +323,12 @@ class TenantResourceIT {
         // Initialize the database
         tenantRepository.saveAndFlush(tenant);
 
-        // Get all the tenantList where companyName does not contain DEFAULT_COMPANY_NAME
+        // Get all the tenantList where companyName does not contain
+        // DEFAULT_COMPANY_NAME
         defaultTenantShouldNotBeFound("companyName.doesNotContain=" + DEFAULT_COMPANY_NAME);
 
-        // Get all the tenantList where companyName does not contain UPDATED_COMPANY_NAME
+        // Get all the tenantList where companyName does not contain
+        // UPDATED_COMPANY_NAME
         defaultTenantShouldBeFound("companyName.doesNotContain=" + UPDATED_COMPANY_NAME);
     }
 
@@ -345,7 +351,8 @@ class TenantResourceIT {
         // Initialize the database
         tenantRepository.saveAndFlush(tenant);
 
-        // Get all the tenantList where contactPerson in DEFAULT_CONTACT_PERSON or UPDATED_CONTACT_PERSON
+        // Get all the tenantList where contactPerson in DEFAULT_CONTACT_PERSON or
+        // UPDATED_CONTACT_PERSON
         defaultTenantShouldBeFound("contactPerson.in=" + DEFAULT_CONTACT_PERSON + "," + UPDATED_CONTACT_PERSON);
 
         // Get all the tenantList where contactPerson equals to UPDATED_CONTACT_PERSON
@@ -384,10 +391,12 @@ class TenantResourceIT {
         // Initialize the database
         tenantRepository.saveAndFlush(tenant);
 
-        // Get all the tenantList where contactPerson does not contain DEFAULT_CONTACT_PERSON
+        // Get all the tenantList where contactPerson does not contain
+        // DEFAULT_CONTACT_PERSON
         defaultTenantShouldNotBeFound("contactPerson.doesNotContain=" + DEFAULT_CONTACT_PERSON);
 
-        // Get all the tenantList where contactPerson does not contain UPDATED_CONTACT_PERSON
+        // Get all the tenantList where contactPerson does not contain
+        // UPDATED_CONTACT_PERSON
         defaultTenantShouldBeFound("contactPerson.doesNotContain=" + UPDATED_CONTACT_PERSON);
     }
 
@@ -527,10 +536,12 @@ class TenantResourceIT {
         // Initialize the database
         tenantRepository.saveAndFlush(tenant);
 
-        // Get all the tenantList where registrationNumber equals to DEFAULT_REGISTRATION_NUMBER
+        // Get all the tenantList where registrationNumber equals to
+        // DEFAULT_REGISTRATION_NUMBER
         defaultTenantShouldBeFound("registrationNumber.equals=" + DEFAULT_REGISTRATION_NUMBER);
 
-        // Get all the tenantList where registrationNumber equals to UPDATED_REGISTRATION_NUMBER
+        // Get all the tenantList where registrationNumber equals to
+        // UPDATED_REGISTRATION_NUMBER
         defaultTenantShouldNotBeFound("registrationNumber.equals=" + UPDATED_REGISTRATION_NUMBER);
     }
 
@@ -540,10 +551,13 @@ class TenantResourceIT {
         // Initialize the database
         tenantRepository.saveAndFlush(tenant);
 
-        // Get all the tenantList where registrationNumber in DEFAULT_REGISTRATION_NUMBER or UPDATED_REGISTRATION_NUMBER
-        defaultTenantShouldBeFound("registrationNumber.in=" + DEFAULT_REGISTRATION_NUMBER + "," + UPDATED_REGISTRATION_NUMBER);
+        // Get all the tenantList where registrationNumber in
+        // DEFAULT_REGISTRATION_NUMBER or UPDATED_REGISTRATION_NUMBER
+        defaultTenantShouldBeFound(
+                "registrationNumber.in=" + DEFAULT_REGISTRATION_NUMBER + "," + UPDATED_REGISTRATION_NUMBER);
 
-        // Get all the tenantList where registrationNumber equals to UPDATED_REGISTRATION_NUMBER
+        // Get all the tenantList where registrationNumber equals to
+        // UPDATED_REGISTRATION_NUMBER
         defaultTenantShouldNotBeFound("registrationNumber.in=" + UPDATED_REGISTRATION_NUMBER);
     }
 
@@ -566,10 +580,12 @@ class TenantResourceIT {
         // Initialize the database
         tenantRepository.saveAndFlush(tenant);
 
-        // Get all the tenantList where registrationNumber contains DEFAULT_REGISTRATION_NUMBER
+        // Get all the tenantList where registrationNumber contains
+        // DEFAULT_REGISTRATION_NUMBER
         defaultTenantShouldBeFound("registrationNumber.contains=" + DEFAULT_REGISTRATION_NUMBER);
 
-        // Get all the tenantList where registrationNumber contains UPDATED_REGISTRATION_NUMBER
+        // Get all the tenantList where registrationNumber contains
+        // UPDATED_REGISTRATION_NUMBER
         defaultTenantShouldNotBeFound("registrationNumber.contains=" + UPDATED_REGISTRATION_NUMBER);
     }
 
@@ -579,10 +595,12 @@ class TenantResourceIT {
         // Initialize the database
         tenantRepository.saveAndFlush(tenant);
 
-        // Get all the tenantList where registrationNumber does not contain DEFAULT_REGISTRATION_NUMBER
+        // Get all the tenantList where registrationNumber does not contain
+        // DEFAULT_REGISTRATION_NUMBER
         defaultTenantShouldNotBeFound("registrationNumber.doesNotContain=" + DEFAULT_REGISTRATION_NUMBER);
 
-        // Get all the tenantList where registrationNumber does not contain UPDATED_REGISTRATION_NUMBER
+        // Get all the tenantList where registrationNumber does not contain
+        // UPDATED_REGISTRATION_NUMBER
         defaultTenantShouldBeFound("registrationNumber.doesNotContain=" + UPDATED_REGISTRATION_NUMBER);
     }
 
@@ -749,23 +767,23 @@ class TenantResourceIT {
      */
     private void defaultTenantShouldBeFound(String filter) throws Exception {
         restTenantMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(tenant.getId().intValue())))
-            .andExpect(jsonPath("$.[*].companyName").value(hasItem(DEFAULT_COMPANY_NAME)))
-            .andExpect(jsonPath("$.[*].contactPerson").value(hasItem(DEFAULT_CONTACT_PERSON)))
-            .andExpect(jsonPath("$.[*].logo").value(hasItem(DEFAULT_LOGO)))
-            .andExpect(jsonPath("$.[*].website").value(hasItem(DEFAULT_WEBSITE)))
-            .andExpect(jsonPath("$.[*].registrationNumber").value(hasItem(DEFAULT_REGISTRATION_NUMBER)))
-            .andExpect(jsonPath("$.[*].subId").value(hasItem(DEFAULT_SUB_ID)));
+                .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.[*].id").value(hasItem(tenant.getId().intValue())))
+                .andExpect(jsonPath("$.[*].companyName").value(hasItem(DEFAULT_COMPANY_NAME)))
+                .andExpect(jsonPath("$.[*].contactPerson").value(hasItem(DEFAULT_CONTACT_PERSON)))
+                .andExpect(jsonPath("$.[*].logo").value(hasItem(DEFAULT_LOGO)))
+                .andExpect(jsonPath("$.[*].website").value(hasItem(DEFAULT_WEBSITE)))
+                .andExpect(jsonPath("$.[*].registrationNumber").value(hasItem(DEFAULT_REGISTRATION_NUMBER)))
+                .andExpect(jsonPath("$.[*].subId").value(hasItem(DEFAULT_SUB_ID)));
 
         // Check, that the count call also returns 1
         restTenantMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("1"));
+                .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(content().string("1"));
     }
 
     /**
@@ -773,18 +791,18 @@ class TenantResourceIT {
      */
     private void defaultTenantShouldNotBeFound(String filter) throws Exception {
         restTenantMockMvc
-            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$").isArray())
-            .andExpect(jsonPath("$").isEmpty());
+                .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
         restTenantMockMvc
-            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(content().string("0"));
+                .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(content().string("0"));
     }
 
     @Test
@@ -804,24 +822,24 @@ class TenantResourceIT {
 
         // Update the tenant
         Tenant updatedTenant = tenantRepository.findById(tenant.getId()).orElseThrow();
-        // Disconnect from session so that the updates on updatedTenant are not directly saved in db
+        // Disconnect from session so that the updates on updatedTenant are not directly
+        // saved in db
         em.detach(updatedTenant);
         updatedTenant
-            .companyName(UPDATED_COMPANY_NAME)
-            .contactPerson(UPDATED_CONTACT_PERSON)
-            .logo(UPDATED_LOGO)
-            .website(UPDATED_WEBSITE)
-            .registrationNumber(UPDATED_REGISTRATION_NUMBER)
-            .subId(UPDATED_SUB_ID);
+                .companyName(UPDATED_COMPANY_NAME)
+                .contactPerson(UPDATED_CONTACT_PERSON)
+                .logo(UPDATED_LOGO)
+                .website(UPDATED_WEBSITE)
+                .registrationNumber(UPDATED_REGISTRATION_NUMBER)
+                .subId(UPDATED_SUB_ID);
         TenantDTO tenantDTO = tenantMapper.toDto(updatedTenant);
 
         restTenantMockMvc
-            .perform(
-                put(ENTITY_API_URL_ID, tenantDTO.getId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(tenantDTO))
-            )
-            .andExpect(status().isOk());
+                .perform(
+                        put(ENTITY_API_URL_ID, tenantDTO.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
+                .andExpect(status().isOk());
 
         // Validate the Tenant in the database
         List<Tenant> tenantList = tenantRepository.findAll();
@@ -846,12 +864,11 @@ class TenantResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restTenantMockMvc
-            .perform(
-                put(ENTITY_API_URL_ID, tenantDTO.getId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(tenantDTO))
-            )
-            .andExpect(status().isBadRequest());
+                .perform(
+                        put(ENTITY_API_URL_ID, tenantDTO.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
+                .andExpect(status().isBadRequest());
 
         // Validate the Tenant in the database
         List<Tenant> tenantList = tenantRepository.findAll();
@@ -869,12 +886,11 @@ class TenantResourceIT {
 
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restTenantMockMvc
-            .perform(
-                put(ENTITY_API_URL_ID, longCount.incrementAndGet())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(tenantDTO))
-            )
-            .andExpect(status().isBadRequest());
+                .perform(
+                        put(ENTITY_API_URL_ID, longCount.incrementAndGet())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
+                .andExpect(status().isBadRequest());
 
         // Validate the Tenant in the database
         List<Tenant> tenantList = tenantRepository.findAll();
@@ -892,8 +908,9 @@ class TenantResourceIT {
 
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restTenantMockMvc
-            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
-            .andExpect(status().isMethodNotAllowed());
+                .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
+                .andExpect(status().isMethodNotAllowed());
 
         // Validate the Tenant in the database
         List<Tenant> tenantList = tenantRepository.findAll();
@@ -913,18 +930,17 @@ class TenantResourceIT {
         partialUpdatedTenant.setId(tenant.getId());
 
         partialUpdatedTenant
-            .companyName(UPDATED_COMPANY_NAME)
-            .contactPerson(UPDATED_CONTACT_PERSON)
-            .logo(UPDATED_LOGO)
-            .website(UPDATED_WEBSITE);
+                .companyName(UPDATED_COMPANY_NAME)
+                .contactPerson(UPDATED_CONTACT_PERSON)
+                .logo(UPDATED_LOGO)
+                .website(UPDATED_WEBSITE);
 
         restTenantMockMvc
-            .perform(
-                patch(ENTITY_API_URL_ID, partialUpdatedTenant.getId())
-                    .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedTenant))
-            )
-            .andExpect(status().isOk());
+                .perform(
+                        patch(ENTITY_API_URL_ID, partialUpdatedTenant.getId())
+                                .contentType("application/merge-patch+json")
+                                .content(TestUtil.convertObjectToJsonBytes(partialUpdatedTenant)))
+                .andExpect(status().isOk());
 
         // Validate the Tenant in the database
         List<Tenant> tenantList = tenantRepository.findAll();
@@ -951,20 +967,19 @@ class TenantResourceIT {
         partialUpdatedTenant.setId(tenant.getId());
 
         partialUpdatedTenant
-            .companyName(UPDATED_COMPANY_NAME)
-            .contactPerson(UPDATED_CONTACT_PERSON)
-            .logo(UPDATED_LOGO)
-            .website(UPDATED_WEBSITE)
-            .registrationNumber(UPDATED_REGISTRATION_NUMBER)
-            .subId(UPDATED_SUB_ID);
+                .companyName(UPDATED_COMPANY_NAME)
+                .contactPerson(UPDATED_CONTACT_PERSON)
+                .logo(UPDATED_LOGO)
+                .website(UPDATED_WEBSITE)
+                .registrationNumber(UPDATED_REGISTRATION_NUMBER)
+                .subId(UPDATED_SUB_ID);
 
         restTenantMockMvc
-            .perform(
-                patch(ENTITY_API_URL_ID, partialUpdatedTenant.getId())
-                    .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedTenant))
-            )
-            .andExpect(status().isOk());
+                .perform(
+                        patch(ENTITY_API_URL_ID, partialUpdatedTenant.getId())
+                                .contentType("application/merge-patch+json")
+                                .content(TestUtil.convertObjectToJsonBytes(partialUpdatedTenant)))
+                .andExpect(status().isOk());
 
         // Validate the Tenant in the database
         List<Tenant> tenantList = tenantRepository.findAll();
@@ -989,12 +1004,11 @@ class TenantResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restTenantMockMvc
-            .perform(
-                patch(ENTITY_API_URL_ID, tenantDTO.getId())
-                    .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(tenantDTO))
-            )
-            .andExpect(status().isBadRequest());
+                .perform(
+                        patch(ENTITY_API_URL_ID, tenantDTO.getId())
+                                .contentType("application/merge-patch+json")
+                                .content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
+                .andExpect(status().isBadRequest());
 
         // Validate the Tenant in the database
         List<Tenant> tenantList = tenantRepository.findAll();
@@ -1012,12 +1026,11 @@ class TenantResourceIT {
 
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restTenantMockMvc
-            .perform(
-                patch(ENTITY_API_URL_ID, longCount.incrementAndGet())
-                    .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(tenantDTO))
-            )
-            .andExpect(status().isBadRequest());
+                .perform(
+                        patch(ENTITY_API_URL_ID, longCount.incrementAndGet())
+                                .contentType("application/merge-patch+json")
+                                .content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
+                .andExpect(status().isBadRequest());
 
         // Validate the Tenant in the database
         List<Tenant> tenantList = tenantRepository.findAll();
@@ -1035,10 +1048,10 @@ class TenantResourceIT {
 
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restTenantMockMvc
-            .perform(
-                patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(tenantDTO))
-            )
-            .andExpect(status().isMethodNotAllowed());
+                .perform(
+                        patch(ENTITY_API_URL).contentType("application/merge-patch+json")
+                                .content(TestUtil.convertObjectToJsonBytes(tenantDTO)))
+                .andExpect(status().isMethodNotAllowed());
 
         // Validate the Tenant in the database
         List<Tenant> tenantList = tenantRepository.findAll();
@@ -1055,11 +1068,40 @@ class TenantResourceIT {
 
         // Delete the tenant
         restTenantMockMvc
-            .perform(delete(ENTITY_API_URL_ID, tenant.getId()).accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNoContent());
+                .perform(delete(ENTITY_API_URL_ID, tenant.getId()).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
         List<Tenant> tenantList = tenantRepository.findAll();
         assertThat(tenantList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    void registerTenant() throws Exception {
+        int databaseSizeBeforeCreate = tenantRepository.findAll().size();
+
+        com.crm.service.dto.TenantRegistrationDTO tenantRegistrationDTO = new com.crm.service.dto.TenantRegistrationDTO();
+        tenantRegistrationDTO.setLogin("newtenantuser");
+        tenantRegistrationDTO.setPassword("password");
+        tenantRegistrationDTO.setFirstName("Tenant");
+        tenantRegistrationDTO.setLastName("User");
+        tenantRegistrationDTO.setEmail("tenant@example.com");
+        tenantRegistrationDTO.setLangKey("en");
+        tenantRegistrationDTO.setCompanyName("New Tenant Company");
+        tenantRegistrationDTO.setContactPerson("Contact Person");
+        tenantRegistrationDTO.setAddressLine1("123 Main St");
+        tenantRegistrationDTO.setPincode(123456);
+
+        restTenantMockMvc
+                .perform(post(ENTITY_API_URL + "/register-tenant").contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtil.convertObjectToJsonBytes(tenantRegistrationDTO)))
+                .andExpect(status().isCreated());
+
+        // Validate the Tenant in the database
+        List<Tenant> tenantList = tenantRepository.findAll();
+        assertThat(tenantList).hasSize(databaseSizeBeforeCreate + 1);
+        Tenant testTenant = tenantList.get(tenantList.size() - 1);
+        assertThat(testTenant.getCompanyName()).isEqualTo("New Tenant Company");
     }
 }
