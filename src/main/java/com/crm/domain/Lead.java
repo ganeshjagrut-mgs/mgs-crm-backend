@@ -34,6 +34,9 @@ public class Lead implements Serializable {
     @Column(name = "annual_revenue")
     private Integer annualRevenue;
 
+    @Column(name = "subsid")
+    private Integer subsid;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
@@ -121,6 +124,20 @@ public class Lead implements Serializable {
 
     public void setAnnualRevenue(Integer annualRevenue) {
         this.annualRevenue = annualRevenue;
+    }
+
+    // ✅ Getter / setter / builder for subsid
+    public Integer getSubsid() {
+        return this.subsid;
+    }
+
+    public void setSubsid(Integer subsid) {
+        this.subsid = subsid;
+    }
+
+    public Lead subsid(Integer subsid) {
+        this.setSubsid(subsid);
+        return this;
     }
 
     public User getUser() {
@@ -215,6 +232,7 @@ public class Lead implements Serializable {
             ", name='" + getName() + "'" +
             ", leadNumber='" + getLeadNumber() + "'" +
             ", annualRevenue=" + getAnnualRevenue() +
+            ", subsid=" + getSubsid() +
             "}";
     }
 }
