@@ -107,9 +107,7 @@ public class AuthenticateController {
         Long tenantId = null;
         Optional<User> userOpt = userRepository.findOneWithAuthoritiesByLogin(login);
         if (userOpt.isPresent()) {
-            User user=userOpt.get();
-           Optional<Tenant> tenant= tenantRepository.findById(user.getId());
-            tenantId = tenant.get().getId();
+            tenantId = userOpt.get().getTenant().getId();
         }
 
         // @formatter:off

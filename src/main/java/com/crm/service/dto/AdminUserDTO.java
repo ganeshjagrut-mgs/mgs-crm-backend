@@ -1,8 +1,8 @@
 package com.crm.service.dto;
 
-import com.crm.config.Constants;
 import com.crm.domain.Authority;
 import com.crm.domain.User;
+import com.crm.util.EncryptedField;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -19,18 +19,20 @@ public class AdminUserDTO implements Serializable {
     private Long id;
 
     @NotBlank
-    @Pattern(regexp = Constants.LOGIN_REGEX)
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 255)
+    @EncryptedField
     private String login;
 
-    @Size(max = 50)
+    @Size(max = 255)
+    @EncryptedField
     private String firstName;
 
-    @Size(max = 50)
+    @Size(max = 255)
+    @EncryptedField
     private String lastName;
 
-    @Email
     @Size(min = 5, max = 254)
+    @EncryptedField
     private String email;
 
     @Size(max = 256)

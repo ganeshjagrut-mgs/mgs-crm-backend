@@ -13,6 +13,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import com.crm.util.EncryptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -41,16 +43,19 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
+    private final EncryptionUtil encryptionUtil;
+
     public UserService(
-        UserRepository userRepository,
-        PasswordEncoder passwordEncoder,
-        AuthorityRepository authorityRepository,
-        CacheManager cacheManager
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            AuthorityRepository authorityRepository,
+            CacheManager cacheManager, EncryptionUtil encryptionUtil1
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.encryptionUtil = encryptionUtil1;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -146,6 +151,9 @@ public class UserService {
     }
 
     public User createUser(AdminUserDTO userDTO) {
+//        Long tenantId = JwtUtil.getTenantIdFromToken();
+        Long tenantId = 1051L;
+        String encryptionKey = encryptionUtil.getEncryptionKey(tenantId).get();
         User user = new User();
         user.setLogin(userDTO.getLogin().toLowerCase());
         user.setFirstName(userDTO.getFirstName());
@@ -174,6 +182,7 @@ public class UserService {
                 .collect(Collectors.toSet());
             user.setAuthorities(authorities);
         }
+        encryptionUtil.encryptObject(user, encryptionKey);
         userRepository.save(user);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
@@ -285,7 +294,13 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
-        return userRepository.findOneWithAuthoritiesByLogin(login);
+        Long tenantId= 1051L;
+//        Long tenantId = JwtUtil.getTenantIdFromToken();
+        String encryptionKey = encryptionUtil.getEncryptionKey(tenantId).get();
+        String encryptedLogin = encryptionUtil.encryptObject(login, encryptionKey);
+        Optional<User> user =  userRepository.findOneWithAuthoritiesByLogin(encryptedLogin);
+        encryptionUtil.decryptObject(user, encryptionKey);
+        return user;
     }
 
     @Transactional(readOnly = true)
