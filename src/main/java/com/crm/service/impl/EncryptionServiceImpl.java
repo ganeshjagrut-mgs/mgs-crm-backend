@@ -52,14 +52,14 @@ public class EncryptionServiceImpl implements EncryptionService {
         log.debug("Request to partially update Encryption : {}", encryptionDTO);
 
         return encryptionRepository
-            .findById(encryptionDTO.getId())
-            .map(existingEncryption -> {
-                encryptionMapper.partialUpdate(existingEncryption, encryptionDTO);
+                .findById(encryptionDTO.getId())
+                .map(existingEncryption -> {
+                    encryptionMapper.partialUpdate(existingEncryption, encryptionDTO);
 
-                return existingEncryption;
-            })
-            .map(encryptionRepository::save)
-            .map(encryptionMapper::toDto);
+                    return existingEncryption;
+                })
+                .map(encryptionRepository::save)
+                .map(encryptionMapper::toDto);
     }
 
     @Override

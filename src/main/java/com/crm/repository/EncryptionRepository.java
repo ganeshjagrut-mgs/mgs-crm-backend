@@ -1,6 +1,7 @@
 package com.crm.repository;
 
 import com.crm.domain.Encryption;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface EncryptionRepository extends JpaRepository<Encryption, Long>, JpaSpecificationExecutor<Encryption> {}
+public interface EncryptionRepository extends JpaRepository<Encryption, Long>, JpaSpecificationExecutor<Encryption> {
+    Optional<Encryption> findByTenantId(Long tenantId);
+}
