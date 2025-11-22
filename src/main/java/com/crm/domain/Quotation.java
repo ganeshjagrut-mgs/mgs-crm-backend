@@ -114,7 +114,6 @@ public class Quotation implements Serializable {
     private User user;
 
     @ManyToOne(optional = false)
-    @NotNull
     @JsonIgnoreProperties(
         value = {
             "addresses",
