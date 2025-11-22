@@ -1,0 +1,51 @@
+{
+  "crmApp": {
+    "quotation": {
+      "home": {
+        "title": "Quotations",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Quotation",
+        "createOrEditLabel": "Create or edit a Quotation",
+        "notFound": "No Quotations found"
+      },
+      "created": "A new Quotation is created with identifier {{ param }}",
+      "updated": "A Quotation is updated with identifier {{ param }}",
+      "deleted": "A Quotation is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Quotation {{ id }}?"
+      },
+      "detail": {
+        "title": "Quotation"
+      },
+      "id": "ID",
+      "quotationNumber": "Quotation Number",
+      "quotationDate": "Quotation Date",
+      "referenceNumber": "Reference Number",
+      "referenceDate": "Reference Date",
+      "estimateDate": "Estimate Date",
+      "subject": "Subject",
+      "validity": "Validity",
+      "additionalNote": "Additional Note",
+      "discountLevelType": "Discount Level Type",
+      "discountType": "Discount Type",
+      "discountTypeValue": "Discount Type Value",
+      "currency": "Currency",
+      "subTotal": "Sub Total",
+      "grandTotal": "Grand Total",
+      "totalTaxAmount": "Total Tax Amount",
+      "adjustmentAmount": "Adjustment Amount",
+      "statusReason": "Status Reason",
+      "pdfGenerationStatus": "Pdf Generation Status",
+      "emailStatus": "Email Status",
+      "emailFailureReason": "Email Failure Reason",
+      "customParagraph": "Custom Paragraph",
+      "correlationId": "Correlation Id",
+      "approvedAt": "Approved At",
+      "priceDataSource": "Price Data Source",
+      "user": "User",
+      "customer": "Customer",
+      "paymentTerm": "Payment Term",
+      "quotationStatus": "Quotation Status"
+    }
+  }
+}

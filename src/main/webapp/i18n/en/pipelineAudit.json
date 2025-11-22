@@ -1,0 +1,28 @@
+{
+  "crmApp": {
+    "pipelineAudit": {
+      "home": {
+        "title": "Pipeline Audits",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Pipeline Audit",
+        "createOrEditLabel": "Create or edit a Pipeline Audit",
+        "notFound": "No Pipeline Audits found"
+      },
+      "created": "A new Pipeline Audit is created with identifier {{ param }}",
+      "updated": "A Pipeline Audit is updated with identifier {{ param }}",
+      "deleted": "A Pipeline Audit is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Pipeline Audit {{ id }}?"
+      },
+      "detail": {
+        "title": "Pipeline Audit"
+      },
+      "id": "ID",
+      "eventTimestamp": "Event Timestamp",
+      "action": "Action",
+      "rowId": "Row Id",
+      "changes": "Changes",
+      "correlationId": "Correlation Id"
+    }
+  }
+}

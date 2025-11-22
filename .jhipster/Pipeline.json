@@ -1,0 +1,74 @@
+{
+  "annotations": {
+    "changelogDate": "20251122121738"
+  },
+  "applications": ["crm"],
+  "documentation": "Pipeline - Sales pipeline/opportunities",
+  "dto": "mapstruct",
+  "entityTableName": "pipeline",
+  "fields": [
+    {
+      "fieldName": "pipelineName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "totalAmount",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "noOfSamples",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "correlationId",
+      "fieldType": "UUID"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Pipeline",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "pipelineTag",
+      "otherEntityRelationshipName": "pipeline",
+      "relationshipName": "pipelineTags",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "task",
+      "otherEntityRelationshipName": "pipeline",
+      "relationshipName": "tasks",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "user",
+      "relationshipName": "pipelineOwner",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "customer",
+      "relationshipName": "customer",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "stageOfPipeline",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "subPipeline",
+      "relationshipName": "subPipeline",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

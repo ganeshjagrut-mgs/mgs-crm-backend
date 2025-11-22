@@ -1,0 +1,9 @@
+{
+  "crmApp": {
+    "DiscountLevelTypeEnum": {
+      "null": "",
+      "ITEM_LEVEL": "ITEM_LEVEL",
+      "TRANSACTION_LEVEL": "TRANSACTION_LEVEL"
+    }
+  }
+}

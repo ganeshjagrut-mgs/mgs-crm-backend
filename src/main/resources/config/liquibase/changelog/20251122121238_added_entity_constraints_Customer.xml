@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Customer.
+    -->
+    <changeSet id="20251122121238-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="company_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__company_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer_company"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="customer_type_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__customer_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="customer_status_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__customer_status_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="ownership_type_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__ownership_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="industry_type_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__industry_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="customer_category_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__customer_category_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="payment_terms_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__payment_terms_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="invoice_frequency_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__invoice_frequency_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="gst_treatment_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__gst_treatment_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="outstanding_person_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__outstanding_person_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="department_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__department_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="department"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="tenat_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__tenat_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tenant"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="rel_customer__master_categories"
+                                 constraintName="fk_rel_customer__master_categories__customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="master_categories_id"
+                                 baseTableName="rel_customer__master_categories"
+                                 constraintName="fk_rel_customer__master_categories__master_categories_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_category"
+                                 />
+    </changeSet>
+</databaseChangeLog>

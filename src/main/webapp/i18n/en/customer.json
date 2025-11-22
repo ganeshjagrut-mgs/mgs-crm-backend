@@ -1,0 +1,64 @@
+{
+  "crmApp": {
+    "customer": {
+      "home": {
+        "title": "Customers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Customer",
+        "createOrEditLabel": "Create or edit a Customer",
+        "notFound": "No Customers found"
+      },
+      "created": "A new Customer is created with identifier {{ param }}",
+      "updated": "A Customer is updated with identifier {{ param }}",
+      "deleted": "A Customer is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Customer {{ id }}?"
+      },
+      "detail": {
+        "title": "Customer"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "companyCity": "Company City",
+      "companyArea": "Company Area",
+      "website": "Website",
+      "customerName": "Customer Name",
+      "currencyType": "Currency Type",
+      "maxInvoiceAmount": "Max Invoice Amount",
+      "gstNo": "Gst No",
+      "panNo": "Pan No",
+      "serviceTaxNo": "Service Tax No",
+      "tanNo": "Tan No",
+      "customFieldData": "Custom Field Data",
+      "correlationId": "Correlation Id",
+      "accountNo": "Account No",
+      "gstStateName": "Gst State Name",
+      "gstStateCode": "Gst State Code",
+      "isSubmitSampleWithoutPO": "Is Submit Sample Without PO",
+      "isBlock": "Is Block",
+      "accountType": "Account Type",
+      "accountManagement": "Account Management",
+      "revenuePotential": "Revenue Potential",
+      "samplePotential": "Sample Potential",
+      "remarks": "Remarks",
+      "totalPipeline": "Total Pipeline",
+      "type": "Type",
+      "addresses": "Addresses",
+      "company": "Company",
+      "user": "User",
+      "customerType": "Customer Type",
+      "customerStatus": "Customer Status",
+      "ownershipType": "Ownership Type",
+      "industryType": "Industry Type",
+      "customerCategory": "Customer Category",
+      "paymentTerms": "Payment Terms",
+      "invoiceFrequency": "Invoice Frequency",
+      "gstTreatment": "Gst Treatment",
+      "outstandingPerson": "Outstanding Person",
+      "department": "Department",
+      "tenat": "Tenat",
+      "masterCategories": "Master Categories"
+    }
+  }
+}

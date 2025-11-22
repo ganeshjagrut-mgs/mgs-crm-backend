@@ -1,0 +1,39 @@
+{
+  "crmApp": {
+    "complaint": {
+      "home": {
+        "title": "Complaints",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Complaint",
+        "createOrEditLabel": "Create or edit a Complaint",
+        "notFound": "No Complaints found"
+      },
+      "created": "A new Complaint is created with identifier {{ param }}",
+      "updated": "A Complaint is updated with identifier {{ param }}",
+      "deleted": "A Complaint is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Complaint {{ id }}?"
+      },
+      "detail": {
+        "title": "Complaint"
+      },
+      "id": "ID",
+      "complaintNumber": "Complaint Number",
+      "complaintDate": "Complaint Date",
+      "recordNumbers": "Record Numbers",
+      "customerContactNumber": "Customer Contact Number",
+      "customerContactEmail": "Customer Contact Email",
+      "complaintDescription": "Complaint Description",
+      "expectedClosureDate": "Expected Closure Date",
+      "rootCause": "Root Cause",
+      "complaintStatus": "Complaint Status",
+      "correctiveAction": "Corrective Action",
+      "preventiveAction": "Preventive Action",
+      "complaintClosureDate": "Complaint Closure Date",
+      "customerName": "Customer Name",
+      "complaintRelatedTo": "Complaint Related To",
+      "typeOfComplaint": "Type Of Complaint",
+      "complaintRelatedPersons": "Complaint Related Persons"
+    }
+  }
+}

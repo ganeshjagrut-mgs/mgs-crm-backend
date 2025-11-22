@@ -1,0 +1,27 @@
+{
+  "crmApp": {
+    "masterStaticType": {
+      "home": {
+        "title": "Master Static Types",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Master Static Type",
+        "createOrEditLabel": "Create or edit a Master Static Type",
+        "notFound": "No Master Static Types found"
+      },
+      "created": "A new Master Static Type is created with identifier {{ param }}",
+      "updated": "A Master Static Type is updated with identifier {{ param }}",
+      "deleted": "A Master Static Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Master Static Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Master Static Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "displayOrder": "Display Order",
+      "isActive": "Is Active"
+    }
+  }
+}

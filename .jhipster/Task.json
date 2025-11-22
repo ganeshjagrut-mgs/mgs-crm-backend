@@ -1,0 +1,75 @@
+{
+  "annotations": {
+    "changelogDate": "20251122121938"
+  },
+  "applications": ["crm"],
+  "documentation": "Task - Tasks related to sales activities",
+  "dto": "mapstruct",
+  "entityTableName": "task",
+  "fields": [
+    {
+      "fieldName": "taskType",
+      "fieldType": "TaskType",
+      "fieldTypeDocumentation": "CRM Project - JHipster Domain Model\\nGenerated based on existing domain entities",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CALL,MEETING,EMAIL,FOLLOW_UP,OTHER"
+    },
+    {
+      "fieldName": "dueDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "taskName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PENDING,IN_PROGRESS,COMPLETED,CANCELLED"
+    },
+    {
+      "fieldName": "taskCompletionDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "correlationId",
+      "fieldType": "UUID"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Task",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "relationshipName": "taskOwner",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "customer",
+      "relationshipName": "customer",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "relatedTo",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "pipeline",
+      "otherEntityRelationshipName": "tasks",
+      "relationshipName": "pipeline",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

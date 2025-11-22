@@ -1,0 +1,27 @@
+{
+  "crmApp": {
+    "masterCategory": {
+      "home": {
+        "title": "Master Categories",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Master Category",
+        "createOrEditLabel": "Create or edit a Master Category",
+        "notFound": "No Master Categories found"
+      },
+      "created": "A new Master Category is created with identifier {{ param }}",
+      "updated": "A Master Category is updated with identifier {{ param }}",
+      "deleted": "A Master Category is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Master Category {{ id }}?"
+      },
+      "detail": {
+        "title": "Master Category"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "code": "Code",
+      "customers": "Customers"
+    }
+  }
+}

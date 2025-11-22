@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity Complaint.
+    -->
+    <changeSet id="20251122122138-1" author="jhipster">
+        <createTable tableName="complaint" remarks="Complaint - Customer complaints">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="complaint_number" type="varchar(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_complaint__complaint_number" />
+            </column>
+            <column name="complaint_date" type="${datetimeType}">
+                <constraints nullable="false" />
+            </column>
+            <column name="record_numbers" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="customer_contact_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="customer_contact_email" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="complaint_description" type="${clobType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="expected_closure_date" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="root_cause" type="${clobType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="complaint_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="corrective_action" type="${clobType}">
+                <constraints nullable="false" />
+            </column>
+            <column name="preventive_action" type="${clobType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="complaint_closure_date" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="customer_name_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="complaint_related_to_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="type_of_complaint_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="complaint" columnName="complaint_date" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="complaint" columnName="expected_closure_date" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="complaint" columnName="complaint_closure_date" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="20251122122138-1-relations" author="jhipster">
+
+        <createTable tableName="rel_complaint__complaint_related_persons">
+            <column name="complaint_related_persons_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="complaint_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="complaint_id, complaint_related_persons_id" tableName="rel_complaint__complaint_related_persons"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20251122122138-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/complaint.csv"
+                  separator=";"
+                  tableName="complaint"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="complaint_number" type="string"/>
+            <column name="complaint_date" type="date"/>
+            <column name="record_numbers" type="string"/>
+            <column name="customer_contact_number" type="string"/>
+            <column name="customer_contact_email" type="string"/>
+            <column name="complaint_description" type="clob"/>
+            <column name="expected_closure_date" type="date"/>
+            <column name="root_cause" type="clob"/>
+            <column name="complaint_status" type="string"/>
+            <column name="corrective_action" type="clob"/>
+            <column name="preventive_action" type="clob"/>
+            <column name="complaint_closure_date" type="date"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

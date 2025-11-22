@@ -1,0 +1,38 @@
+{
+  "annotations": {
+    "changelogDate": "20251122122738"
+  },
+  "applications": ["crm"],
+  "documentation": "TaskAudit - Audit trail for task changes",
+  "dto": "mapstruct",
+  "entityTableName": "task_audit",
+  "fields": [
+    {
+      "fieldName": "eventTimestamp",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "action",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rowId",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "changes",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "correlationId",
+      "fieldType": "UUID"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "TaskAudit",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

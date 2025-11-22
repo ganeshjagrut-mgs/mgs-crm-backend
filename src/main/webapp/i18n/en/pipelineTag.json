@@ -1,0 +1,25 @@
+{
+  "crmApp": {
+    "pipelineTag": {
+      "home": {
+        "title": "Pipeline Tags",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Pipeline Tag",
+        "createOrEditLabel": "Create or edit a Pipeline Tag",
+        "notFound": "No Pipeline Tags found"
+      },
+      "created": "A new Pipeline Tag is created with identifier {{ param }}",
+      "updated": "A Pipeline Tag is updated with identifier {{ param }}",
+      "deleted": "A Pipeline Tag is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Pipeline Tag {{ id }}?"
+      },
+      "detail": {
+        "title": "Pipeline Tag"
+      },
+      "id": "ID",
+      "name": "Name",
+      "pipeline": "Pipeline"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "crmApp": {
+    "subPipelineCloseStage": {
+      "home": {
+        "title": "Sub Pipeline Close Stages",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Sub Pipeline Close Stage",
+        "createOrEditLabel": "Create or edit a Sub Pipeline Close Stage",
+        "notFound": "No Sub Pipeline Close Stages found"
+      },
+      "created": "A new Sub Pipeline Close Stage is created with identifier {{ param }}",
+      "updated": "A Sub Pipeline Close Stage is updated with identifier {{ param }}",
+      "deleted": "A Sub Pipeline Close Stage is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Sub Pipeline Close Stage {{ id }}?"
+      },
+      "detail": {
+        "title": "Sub Pipeline Close Stage"
+      },
+      "id": "ID",
+      "index": "Index",
+      "stage": "Stage",
+      "subPipeline": "Sub Pipeline"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "crmApp": {
+    "DiscountTypeEnum": {
+      "null": "",
+      "PERCENTAGE": "PERCENTAGE",
+      "FIXED_AMOUNT": "FIXED_AMOUNT"
+    }
+  }
+}

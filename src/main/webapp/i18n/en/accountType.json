@@ -1,0 +1,10 @@
+{
+  "crmApp": {
+    "AccountType": {
+      "null": "",
+      "DIRECT": "DIRECT",
+      "INDIRECT": "INDIRECT",
+      "PARTNER": "PARTNER"
+    }
+  }
+}

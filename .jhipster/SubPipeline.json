@@ -1,0 +1,41 @@
+{
+  "annotations": {
+    "changelogDate": "20251122121438"
+  },
+  "applications": ["crm"],
+  "documentation": "SubPipeline - Pipeline configuration",
+  "dto": "mapstruct",
+  "entityTableName": "sub_pipeline",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "index",
+      "fieldType": "Integer"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "SubPipeline",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "subPipelineOpenStage",
+      "otherEntityRelationshipName": "subPipeline",
+      "relationshipName": "openStages",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "subPipelineCloseStage",
+      "otherEntityRelationshipName": "subPipeline",
+      "relationshipName": "closeStages",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

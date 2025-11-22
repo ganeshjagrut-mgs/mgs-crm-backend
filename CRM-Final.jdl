@@ -1,0 +1,512 @@
+/**
+ * CRM Project - JHipster Domain Model
+ * Generated based on existing domain entities
+ */
+
+// Enumerations
+enum TaskType {
+    CALL,
+    MEETING,
+    EMAIL,
+    FOLLOW_UP,
+    OTHER
+}
+
+enum Status {
+    PENDING,
+    IN_PROGRESS,
+    COMPLETED,
+    CANCELLED
+}
+
+enum ComplaintStatus {
+    OPEN,
+    IN_PROGRESS,
+    RESOLVED,
+    CLOSED,
+    REJECTED
+}
+
+enum AccountType {
+    DIRECT,
+    INDIRECT,
+    PARTNER
+}
+
+enum AccountManagement {
+    SELF_MANAGED,
+    AGENCY_MANAGED,
+    PARTNERSHIP
+}
+
+enum MasterStaticGroupEditable {
+    YES,
+    NO,
+    CONDITIONAL
+}
+
+enum DiscountLevelTypeEnum {
+    ITEM_LEVEL,
+    TRANSACTION_LEVEL
+}
+
+enum DiscountTypeEnum {
+    PERCENTAGE,
+    FIXED_AMOUNT
+}
+
+enum PDFGenerationStatus {
+    PENDING,
+    IN_PROGRESS,
+    COMPLETED,
+    FAILED
+}
+
+enum TestReportEmailStatus {
+    NOT_SENT,
+    SENT,
+    FAILED
+}
+
+enum PriceDataSourceEnum {
+    MANUAL,
+    PRICE_LIST,
+    CUSTOMER_SPECIFIC
+}
+
+enum UserRole {
+  SUPER_ADMIN,
+  ADMIN,
+  E_REPRESENTATIVE,
+  USER
+}
+
+// Core Entities
+
+/**
+ * EntityType - Defines types of entities in the system
+ */
+entity EntityType {
+    name String required unique,
+    label String
+}
+
+/**
+ * MasterStaticGroup - Groups master static data
+ */
+entity MasterStaticGroup {
+    name String required,
+    description String,
+    uiLabel String,
+    editable MasterStaticGroupEditable
+}
+
+/**
+ * MasterStaticType - Master data for various dropdowns and selections
+ */
+entity MasterStaticType {
+    name String required,
+    description String,
+    displayOrder Integer,
+    isActive Boolean
+}
+
+entity MasterCategory {
+    name String required,
+    description String,
+    code String
+}
+
+entity Tenant {
+  companyName String required,
+  contactPerson String,
+  logo String,
+  website String,
+  registrationNumber String,
+  subId Integer
+}
+
+entity Encryption {
+  key String required,
+  pin String required
+}
+
+
+/**
+ * Company - Company master data
+ */
+entity CustomerCompany {
+    name String required,
+    code String,
+    description String,
+    website String,
+    registrationNumber String
+}
+
+/**
+ * Department - Organizational departments
+ */
+entity Department {
+    name String required,
+    code String,
+    description String
+}
+
+entity Customer {
+    name String,
+    description String,
+    companyCity String,
+    companyArea String,
+    website String,
+    customerName String,
+    currencyType String,
+    maxInvoiceAmount Double,
+    gstNo String,
+    panNo String,
+    serviceTaxNo String,
+    tanNo String,
+    customFieldData TextBlob,
+    correlationId UUID,
+    accountNo String,
+    gstStateName String,
+    gstStateCode String,
+    isSubmitSampleWithoutPO Boolean,
+    isBlock Boolean,
+    accountType AccountType,
+    accountManagement AccountManagement,
+    revenuePotential Double,
+    samplePotential Double,
+    remarks TextBlob,
+    totalPipeline Integer,
+    type String
+}
+
+/**
+ * Lead - Sales leads
+ */
+entity Lead {
+    name String required,
+    leadNumber String,
+    annualRevenue Integer
+}
+
+
+/**
+ * SubPipeline - Pipeline configuration
+ */
+entity SubPipeline {
+    name String required,
+    index Integer
+}
+
+/**
+ * SubPipelineOpenStage - Open stages in pipeline
+ */
+entity SubPipelineOpenStage {
+    index Integer
+}
+
+/**
+ * SubPipelineCloseStage - Close stages in pipeline
+ */
+entity SubPipelineCloseStage {
+    index Integer
+}
+
+/**
+ * Pipeline - Sales pipeline/opportunities
+ */
+entity Pipeline {
+    pipelineName String required,
+    totalAmount BigDecimal,
+    noOfSamples Integer,
+    correlationId UUID
+}
+
+/**
+ * PipelineTag - Tags for pipelines
+ */
+entity PipelineTag {
+    name String required
+}
+
+/**
+ * Task - Tasks related to sales activities
+ */
+entity Task {
+    taskType TaskType required,
+    dueDate LocalDate required,
+    taskName String required,
+    status Status required,
+    taskCompletionDate LocalDate,
+    correlationId UUID
+}
+
+/**
+ * Quotation - Sales quotations
+ */
+entity Quotation {
+    quotationNumber String,
+    quotationDate Instant,
+    referenceNumber String,
+    referenceDate Instant,
+    estimateDate Instant,
+    subject String,
+    validity Instant,
+    additionalNote TextBlob,
+    discountLevelType DiscountLevelTypeEnum,
+    discountType DiscountTypeEnum,
+    discountTypeValue Double,
+    currency String,
+    subTotal Double,
+    grandTotal Double,
+    totalTaxAmount Double,
+    adjustmentAmount Double,
+    statusReason String,
+    pdfGenerationStatus PDFGenerationStatus,
+    emailStatus TestReportEmailStatus,
+    emailFailureReason String,
+    customParagraph TextBlob,
+    correlationId UUID,
+    approvedAt Instant,
+    priceDataSource PriceDataSourceEnum
+}
+
+/**
+ * Complaint - Customer complaints
+ */
+entity Complaint {
+    complaintNumber String required unique,
+    complaintDate Instant required,
+    recordNumbers String,
+    customerContactNumber String,
+    customerContactEmail String,
+    complaintDescription TextBlob,
+    expectedClosureDate Instant,
+    rootCause TextBlob,
+    complaintStatus ComplaintStatus,
+    correctiveAction TextBlob required,
+    preventiveAction TextBlob,
+    complaintClosureDate Instant
+}
+
+/**
+ * CustomerAddress - Customer addresses
+ */
+entity Address {
+    addressLine1 String,
+    addressLine2 String,
+    pincode Integer
+    isPrimary Boolean
+}
+
+entity Country {
+  name String required,
+  code String,
+  createdAt Instant,
+  createdBy String,
+  updatedAt Instant,
+  updatedBy String,
+  active Boolean
+}
+
+entity State {
+  name String required,
+  code String,
+  createdAt Instant,
+  createdBy String,
+  updatedAt Instant,
+  updatedBy String,
+  active Boolean
+}
+
+entity City {
+  name String required,
+  postalCode String,
+  latitude Double,
+  longitude Double,
+  createdAt Instant,
+  createdBy String,
+  updatedAt Instant,
+  updatedBy String,
+  active Boolean
+}
+
+// Audit Tables
+/**
+ * PipelineAudit - Audit trail for pipeline changes
+ */
+entity PipelineAudit {
+    eventTimestamp Instant,
+    action String,
+    rowId UUID,
+    changes TextBlob,
+    correlationId UUID
+}
+
+/**
+ * TaskAudit - Audit trail for task changes
+ */
+entity TaskAudit {
+    eventTimestamp Instant,
+    action String,
+    rowId UUID,
+    changes TextBlob,
+    correlationId UUID
+}
+
+
+relationship ManyToOne {
+    MasterStaticGroup{entityType} to EntityType
+}
+
+
+
+relationship ManyToOne {
+    Customer{company} to CustomerCompany,
+    Customer{user} to User with builtInEntity,
+    Customer{customerType} to MasterStaticType,
+    Customer{customerStatus} to MasterStaticType,
+    Customer{ownershipType} to MasterStaticType,
+    Customer{industryType} to MasterStaticType,
+    Customer{customerCategory} to MasterStaticType,
+    Customer{paymentTerms} to MasterStaticType,
+    Customer{invoiceFrequency} to MasterStaticType,
+    Customer{gstTreatment} to MasterStaticType,
+    Customer{outstandingPerson} to User with builtInEntity,
+    Customer{department} to Department,
+    Customer {tenat} to Tenant
+}
+
+relationship ManyToMany {
+    Customer{masterCategories} to MasterCategory{customers}
+}
+
+relationship OneToMany {
+    Customer{addresses} to Address{customer}
+    Tenant{addresses} to Address
+
+}
+
+relationship ManyToMany {
+  Tenant{users} to User with builtInEntity
+}
+
+
+// Lead relationships
+relationship ManyToOne {
+    Lead{user} to User with builtInEntity,
+    Lead{customer} to Customer,
+    Lead{leadSource} to MasterStaticType,
+    Lead{industryType} to MasterStaticType,
+    Lead{leadStatus} to MasterStaticType
+}
+
+// Pipeline relationships
+relationship ManyToOne {
+    Pipeline{pipelineOwner} to User with builtInEntity,
+    Pipeline{customer} to Customer,
+    Pipeline{stageOfPipeline} to MasterStaticType,
+    Pipeline{subPipeline} to SubPipeline
+
+}
+
+relationship OneToMany {
+    Pipeline{pipelineTags} to PipelineTag{pipeline required},
+    Pipeline{tasks} to Task{pipeline}
+}
+
+relationship ManyToOne{
+	State{country(name)} to Country,
+	City{state(name)} to State
+}
+
+relationship ManyToOne{
+    Address{city} to City,
+    Address{state} to State,
+    Address{country} to Country
+}
+
+
+// SubPipeline relationships
+relationship OneToMany {
+    SubPipeline{openStages} to SubPipelineOpenStage{subPipeline required},
+    SubPipeline{closeStages} to SubPipelineCloseStage{subPipeline required}
+}
+
+// SubPipelineOpenStage relationships
+relationship ManyToOne {
+    SubPipelineOpenStage{stage required} to MasterStaticType
+}
+
+// SubPipelineCloseStage relationships
+relationship ManyToOne {
+    SubPipelineCloseStage{stage required} to MasterStaticType
+}
+
+// Task relationships
+relationship ManyToOne {
+    Task{taskOwner} to User with builtInEntity,
+    Task{customer} to Customer,
+    Task{relatedTo} to MasterStaticType
+}
+
+// Quotation relationships
+relationship ManyToOne {
+    Quotation{user} to User with builtInEntity,
+    Quotation{customer required} to Customer,
+    Quotation{paymentTerm} to MasterStaticType,
+    Quotation{quotationStatus} to MasterStaticType,
+    Quotation{user} to User with builtInEntity
+
+}
+
+// Complaint relationships
+relationship ManyToOne {
+    Complaint{customerName} to Customer,
+    Complaint{complaintRelatedTo} to MasterStaticType,
+    Complaint{typeOfComplaint} to MasterStaticType
+
+}
+
+relationship ManyToMany {
+    Complaint{complaintRelatedPersons} to User{complaints} with builtInEntity
+}
+
+
+
+
+// A User has one Encryption config
+relationship OneToOne {
+  Encryption{tenant} to Tenant
+}
+
+
+
+application {
+  config {
+    baseName crm
+    applicationType monolith
+    packageName com.crm
+    buildTool gradle
+
+    databaseType sql
+    devDatabaseType postgresql
+    prodDatabaseType postgresql
+
+    authenticationType jwt
+    cacheProvider ehcache
+    enableHibernateCache true
+    clientFramework react
+    serviceDiscoveryType no
+  }
+
+  entities *
+}
+
+dto * with mapstruct
+service * with serviceImpl
+paginate * with pagination
+filter *
+
+

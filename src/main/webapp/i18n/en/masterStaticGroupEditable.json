@@ -1,0 +1,10 @@
+{
+  "crmApp": {
+    "MasterStaticGroupEditable": {
+      "null": "",
+      "YES": "YES",
+      "NO": "NO",
+      "CONDITIONAL": "CONDITIONAL"
+    }
+  }
+}

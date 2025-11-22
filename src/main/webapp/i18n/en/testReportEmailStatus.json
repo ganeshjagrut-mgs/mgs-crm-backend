@@ -1,0 +1,10 @@
+{
+  "crmApp": {
+    "TestReportEmailStatus": {
+      "null": "",
+      "NOT_SENT": "NOT_SENT",
+      "SENT": "SENT",
+      "FAILED": "FAILED"
+    }
+  }
+}

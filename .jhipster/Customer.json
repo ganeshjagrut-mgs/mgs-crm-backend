@@ -1,0 +1,219 @@
+{
+  "annotations": {
+    "changelogDate": "20251122121238"
+  },
+  "applications": ["crm"],
+  "dto": "mapstruct",
+  "entityTableName": "customer",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "companyCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "companyArea",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "website",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "customerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "currencyType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "maxInvoiceAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "gstNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "panNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceTaxNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tanNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "customFieldData",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "correlationId",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "accountNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "gstStateName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "gstStateCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isSubmitSampleWithoutPO",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isBlock",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "accountType",
+      "fieldType": "AccountType",
+      "fieldValues": "DIRECT,INDIRECT,PARTNER"
+    },
+    {
+      "fieldName": "accountManagement",
+      "fieldType": "AccountManagement",
+      "fieldValues": "SELF_MANAGED,AGENCY_MANAGED,PARTNERSHIP"
+    },
+    {
+      "fieldName": "revenuePotential",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "samplePotential",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "remarks",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "totalPipeline",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Customer",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "address",
+      "otherEntityRelationshipName": "customer",
+      "relationshipName": "addresses",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "customerCompany",
+      "relationshipName": "company",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "customerType",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "customerStatus",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "ownershipType",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "industryType",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "customerCategory",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "paymentTerms",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "invoiceFrequency",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "gstTreatment",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "user",
+      "relationshipName": "outstandingPerson",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "department",
+      "relationshipName": "department",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "tenant",
+      "relationshipName": "tenat",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterCategory",
+      "otherEntityRelationshipName": "customers",
+      "relationshipName": "masterCategories",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

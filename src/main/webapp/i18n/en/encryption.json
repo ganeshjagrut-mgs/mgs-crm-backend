@@ -1,0 +1,26 @@
+{
+  "crmApp": {
+    "encryption": {
+      "home": {
+        "title": "Encryptions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Encryption",
+        "createOrEditLabel": "Create or edit a Encryption",
+        "notFound": "No Encryptions found"
+      },
+      "created": "A new Encryption is created with identifier {{ param }}",
+      "updated": "A Encryption is updated with identifier {{ param }}",
+      "deleted": "A Encryption is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Encryption {{ id }}?"
+      },
+      "detail": {
+        "title": "Encryption"
+      },
+      "id": "ID",
+      "key": "Key",
+      "pin": "Pin",
+      "tenant": "Tenant"
+    }
+  }
+}

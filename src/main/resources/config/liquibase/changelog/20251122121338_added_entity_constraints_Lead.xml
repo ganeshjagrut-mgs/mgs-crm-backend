@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Lead.
+    -->
+    <changeSet id="20251122121338-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="lead_source_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__lead_source_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="industry_type_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__industry_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="lead_status_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__lead_status_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+    </changeSet>
+</databaseChangeLog>

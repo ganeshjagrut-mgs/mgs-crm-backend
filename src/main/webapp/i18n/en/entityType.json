@@ -1,0 +1,25 @@
+{
+  "crmApp": {
+    "entityType": {
+      "home": {
+        "title": "Entity Types",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Entity Type",
+        "createOrEditLabel": "Create or edit a Entity Type",
+        "notFound": "No Entity Types found"
+      },
+      "created": "A new Entity Type is created with identifier {{ param }}",
+      "updated": "A Entity Type is updated with identifier {{ param }}",
+      "deleted": "A Entity Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Entity Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Entity Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "label": "Label"
+    }
+  }
+}

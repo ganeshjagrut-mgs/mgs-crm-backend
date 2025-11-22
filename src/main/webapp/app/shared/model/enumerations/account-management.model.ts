@@ -1,0 +1,7 @@
+export enum AccountManagement {
+  SELF_MANAGED = 'SELF_MANAGED',
+
+  AGENCY_MANAGED = 'AGENCY_MANAGED',
+
+  PARTNERSHIP = 'PARTNERSHIP',
+}

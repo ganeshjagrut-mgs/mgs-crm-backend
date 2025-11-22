@@ -1,0 +1,147 @@
+{
+  "annotations": {
+    "changelogDate": "20251122122038"
+  },
+  "applications": ["crm"],
+  "documentation": "Quotation - Sales quotations",
+  "dto": "mapstruct",
+  "entityTableName": "quotation",
+  "fields": [
+    {
+      "fieldName": "quotationNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "quotationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "referenceNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referenceDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "estimateDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "subject",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "validity",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "additionalNote",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "discountLevelType",
+      "fieldType": "DiscountLevelTypeEnum",
+      "fieldValues": "ITEM_LEVEL,TRANSACTION_LEVEL"
+    },
+    {
+      "fieldName": "discountType",
+      "fieldType": "DiscountTypeEnum",
+      "fieldValues": "PERCENTAGE,FIXED_AMOUNT"
+    },
+    {
+      "fieldName": "discountTypeValue",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "currency",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subTotal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "grandTotal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalTaxAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "statusReason",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pdfGenerationStatus",
+      "fieldType": "PDFGenerationStatus",
+      "fieldValues": "PENDING,IN_PROGRESS,COMPLETED,FAILED"
+    },
+    {
+      "fieldName": "emailStatus",
+      "fieldType": "TestReportEmailStatus",
+      "fieldValues": "NOT_SENT,SENT,FAILED"
+    },
+    {
+      "fieldName": "emailFailureReason",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "customParagraph",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "correlationId",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "approvedAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "priceDataSource",
+      "fieldType": "PriceDataSourceEnum",
+      "fieldValues": "MANUAL,PRICE_LIST,CUSTOMER_SPECIFIC"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Quotation",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "customer",
+      "relationshipName": "customer",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "paymentTerm",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "quotationStatus",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

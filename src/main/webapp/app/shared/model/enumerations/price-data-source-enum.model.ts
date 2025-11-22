@@ -1,0 +1,7 @@
+export enum PriceDataSourceEnum {
+  MANUAL = 'MANUAL',
+
+  PRICE_LIST = 'PRICE_LIST',
+
+  CUSTOMER_SPECIFIC = 'CUSTOMER_SPECIFIC',
+}

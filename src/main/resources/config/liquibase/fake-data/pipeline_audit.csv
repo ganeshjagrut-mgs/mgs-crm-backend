@@ -1,0 +1,11 @@
+id;event_timestamp;action;row_id;changes;correlation_id
+1;2025-11-22T09:25:04;the patent;d54a9851-3051-4711-9d19-e5331c3d6205;../fake-data/blob/hipster.txt;d213343d-12bb-4bc3-9cbd-17bd5ee9d405
+2;2025-11-22T09:38:31;catalog yet;ffc08205-2a0c-48d9-96b4-bfd4eef79e8e;../fake-data/blob/hipster.txt;dfcd7864-7708-4be4-a91b-3a016b797c52
+3;2025-11-21T17:47:06;where esteemed abound;0b31a9f1-c693-4101-98c4-02d582a20cd9;../fake-data/blob/hipster.txt;85e3b809-8170-4697-b44c-32da18dcfb8b
+4;2025-11-22T03:46:25;sensitivity at;96f07690-553e-402e-852a-fa4a807ca3c7;../fake-data/blob/hipster.txt;63a41f07-5afb-4480-bb9e-744069ae5a3d
+5;2025-11-22T07:12:27;actual;786553f8-cd49-44b7-a4dd-6743effaaf9f;../fake-data/blob/hipster.txt;cf0a6256-a17c-470d-b7e4-3747bb384207
+6;2025-11-21T22:19:49;hastily remorseful;0db2c7b5-f3e2-420f-b94e-91c1c618e12c;../fake-data/blob/hipster.txt;5f210c00-61ff-4fe5-aec4-e29137254a12
+7;2025-11-21T23:44:11;instead yet wealthy;1bf0e7e0-b051-4711-b8d8-5bacaa530cf2;../fake-data/blob/hipster.txt;cbb2af98-ca90-4aff-b9de-51d817f2e073
+8;2025-11-21T14:52:48;simple bashfully;b2582ed1-032e-4dc3-b395-1efba906ca0f;../fake-data/blob/hipster.txt;bb2709d3-3f0f-4110-b532-9dce4d958dd2
+9;2025-11-21T14:34:52;comfort yet;54d6d23a-e1a8-4021-9b27-a4c3f3a5ce25;../fake-data/blob/hipster.txt;936a449c-e7ff-4725-9739-ebe5e4311370
+10;2025-11-21T14:45:22;aardvark meanwhile;548211d1-7bda-4009-8f86-e03043d3161b;../fake-data/blob/hipster.txt;f66f69e6-74f3-4d69-a54f-ef7875f595d7

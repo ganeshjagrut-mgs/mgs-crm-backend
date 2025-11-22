@@ -1,0 +1,38 @@
+{
+  "annotations": {
+    "changelogDate": "20251122122638"
+  },
+  "applications": ["crm"],
+  "documentation": "PipelineAudit - Audit trail for pipeline changes",
+  "dto": "mapstruct",
+  "entityTableName": "pipeline_audit",
+  "fields": [
+    {
+      "fieldName": "eventTimestamp",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "action",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rowId",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "changes",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "correlationId",
+      "fieldType": "UUID"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "PipelineAudit",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

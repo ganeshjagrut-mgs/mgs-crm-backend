@@ -1,0 +1,42 @@
+{
+  "annotations": {
+    "changelogDate": "20251122120538"
+  },
+  "applications": ["crm"],
+  "documentation": "MasterStaticGroup - Groups master static data",
+  "dto": "mapstruct",
+  "entityTableName": "master_static_group",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "uiLabel",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "editable",
+      "fieldType": "MasterStaticGroupEditable",
+      "fieldValues": "YES,NO,CONDITIONAL"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "MasterStaticGroup",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "entityType",
+      "relationshipName": "entityType",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

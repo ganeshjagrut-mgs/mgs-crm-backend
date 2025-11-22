@@ -1,0 +1,37 @@
+{
+  "annotations": {
+    "changelogDate": "20251122121638"
+  },
+  "applications": ["crm"],
+  "documentation": "SubPipelineCloseStage - Close stages in pipeline",
+  "dto": "mapstruct",
+  "entityTableName": "sub_pipeline_close_stage",
+  "fields": [
+    {
+      "fieldName": "index",
+      "fieldType": "Integer"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "SubPipelineCloseStage",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "stage",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "subPipeline",
+      "otherEntityRelationshipName": "closeStages",
+      "relationshipName": "subPipeline",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

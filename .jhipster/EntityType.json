@@ -1,0 +1,26 @@
+{
+  "annotations": {
+    "changelogDate": "20251122120438"
+  },
+  "applications": ["crm"],
+  "documentation": "EntityType - Defines types of entities in the system",
+  "dto": "mapstruct",
+  "entityTableName": "entity_type",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "label",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "EntityType",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

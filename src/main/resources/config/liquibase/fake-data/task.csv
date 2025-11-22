@@ -1,0 +1,11 @@
+id;task_type;due_date;task_name;status;task_completion_date;correlation_id
+1;EMAIL;2025-11-22;corsage friendly yowza;CANCELLED;2025-11-22;63f7f072-275d-489e-a184-68130ce2ee0e
+2;MEETING;2025-11-21;provided immaculate jealous;CANCELLED;2025-11-21;afa5df44-8440-4512-a787-d18250c61959
+3;EMAIL;2025-11-22;while uselessly;PENDING;2025-11-22;2e6e3cd2-9405-41e9-9a44-3cb5ddc4da16
+4;MEETING;2025-11-22;plunge out honored;CANCELLED;2025-11-21;4a795ed3-6c60-4aa9-891d-f50c483f9cd3
+5;MEETING;2025-11-22;or;CANCELLED;2025-11-22;cd46a3c5-0045-47c4-bf84-b0e176e3ee75
+6;MEETING;2025-11-22;er poker likewise;PENDING;2025-11-22;d9874af5-8a2f-4070-86a5-989ecc968c20
+7;OTHER;2025-11-22;spatula astride manor;CANCELLED;2025-11-21;b4419a83-dd1a-4d79-93b7-350e717f148b
+8;CALL;2025-11-21;when;PENDING;2025-11-22;9c1c1852-77a5-41ad-ad3b-4bdd1fedc23d
+9;CALL;2025-11-22;mild viciously;CANCELLED;2025-11-22;d46a8244-0c65-4a5d-abef-71b0ac7867ce
+10;EMAIL;2025-11-21;on disown jicama;PENDING;2025-11-21;2a930986-ae92-4d0a-bf11-2efd84ccd797

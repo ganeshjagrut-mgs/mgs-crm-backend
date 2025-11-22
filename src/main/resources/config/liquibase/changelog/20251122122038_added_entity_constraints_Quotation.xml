@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Quotation.
+    -->
+    <changeSet id="20251122122038-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="quotation"
+                                 constraintName="fk_quotation__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="quotation"
+                                 constraintName="fk_quotation__customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="payment_term_id"
+                                 baseTableName="quotation"
+                                 constraintName="fk_quotation__payment_term_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="quotation_status_id"
+                                 baseTableName="quotation"
+                                 constraintName="fk_quotation__quotation_status_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="master_static_type"
+                                 />
+    </changeSet>
+</databaseChangeLog>

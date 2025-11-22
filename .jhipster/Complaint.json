@@ -1,0 +1,100 @@
+{
+  "annotations": {
+    "changelogDate": "20251122122138"
+  },
+  "applications": ["crm"],
+  "documentation": "Complaint - Customer complaints",
+  "dto": "mapstruct",
+  "entityTableName": "complaint",
+  "fields": [
+    {
+      "fieldName": "complaintNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "complaintDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "recordNumbers",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "customerContactNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "customerContactEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "complaintDescription",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "expectedClosureDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "rootCause",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "complaintStatus",
+      "fieldType": "ComplaintStatus",
+      "fieldValues": "OPEN,IN_PROGRESS,RESOLVED,CLOSED,REJECTED"
+    },
+    {
+      "fieldName": "correctiveAction",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "preventiveAction",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "complaintClosureDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Complaint",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "customer",
+      "relationshipName": "customerName",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "complaintRelatedTo",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "masterStaticType",
+      "relationshipName": "typeOfComplaint",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "complaints",
+      "relationshipName": "complaintRelatedPersons",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many",
+      "relationshipWithBuiltInEntity": true
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}
