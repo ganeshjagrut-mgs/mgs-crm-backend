@@ -1,24 +1,23 @@
 package com.crm.service.impl;
 
+import com.crm.domain.Encryption;
 import com.crm.domain.Tenant;
+import com.crm.repository.EncryptionRepository;
 import com.crm.repository.TenantRepository;
 import com.crm.service.TenantService;
-import com.crm.service.dto.TenantDTO;
+import com.crm.service.dto.*;
 import com.crm.service.dto.TenantDTO;
 import com.crm.service.mapper.TenantMapper;
 import com.crm.service.UserService;
 import com.crm.service.AddressService;
-import com.crm.service.dto.AdminUserDTO;
-import com.crm.service.dto.AddressDTO;
-import com.crm.service.dto.CityDTO;
-import com.crm.service.dto.StateDTO;
-import com.crm.service.dto.CountryDTO;
 import com.crm.domain.User;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import com.crm.util.EncryptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -43,12 +42,15 @@ public class TenantServiceImpl implements TenantService {
 
     private final AddressService addressService;
 
+    private final EncryptionRepository encryptionRepository;
+
     public TenantServiceImpl(TenantRepository tenantRepository, TenantMapper tenantMapper, UserService userService,
-            AddressService addressService) {
+                             AddressService addressService, EncryptionRepository encryptionRepository) {
         this.tenantRepository = tenantRepository;
         this.tenantMapper = tenantMapper;
         this.userService = userService;
         this.addressService = addressService;
+        this.encryptionRepository = encryptionRepository;
     }
 
     @Override
@@ -95,7 +97,7 @@ public class TenantServiceImpl implements TenantService {
 
     /**
      * Get all the tenants where Encryption is {@code null}.
-     * 
+     *
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
@@ -122,7 +124,8 @@ public class TenantServiceImpl implements TenantService {
     }
 
     @Override
-    public TenantDTO registerTenant(com.crm.service.dto.TenantRegistrationDTO tenantRegistrationDTO) {
+    @Transactional
+    public TenantDTO registerTenant(TenantRegistrationDTO tenantRegistrationDTO) {
         log.debug("Request to register Tenant : {}", tenantRegistrationDTO);
 
         // 1. Create and Save User
@@ -152,9 +155,21 @@ public class TenantServiceImpl implements TenantService {
         tenant.addUsers(user);
         tenantRepository.save(tenant);
 
+        Encryption encryption = new Encryption();
+        encryption.setKey(EncryptionUtil.generateKey());
+        encryption.setPin(tenantRegistrationDTO.getSecurityPin());
+        encryption.setTenant(tenant);
+
+        encryptionRepository.save(encryption);
+
+        // Attach encryption to tenant
+        tenant.setEncryption(encryption);
+        tenantRepository.save(tenant);
+
+        // Convert to DTO AFTER encryption assigned
         TenantDTO savedTenantDTO = tenantMapper.toDto(tenant);
 
-        // 3. Create and Save Address
+        // 4. Create and Save Address
         AddressDTO addressDTO = new AddressDTO();
         addressDTO.setAddressLine1(tenantRegistrationDTO.getAddressLine1());
         addressDTO.setAddressLine2(tenantRegistrationDTO.getAddressLine2());
@@ -181,4 +196,5 @@ public class TenantServiceImpl implements TenantService {
 
         return savedTenantDTO;
     }
+
 }
