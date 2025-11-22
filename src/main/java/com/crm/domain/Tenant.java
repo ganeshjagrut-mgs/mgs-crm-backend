@@ -50,12 +50,7 @@ public class Tenant implements Serializable {
     @JsonIgnoreProperties(value = { "city", "state", "country", "customer", "tenant" }, allowSetters = true)
     private Set<Address> addresses = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "rel_tenant__users",
-        joinColumns = @JoinColumn(name = "tenant_id"),
-        inverseJoinColumns = @JoinColumn(name = "users_id")
-    )
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tenant")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<User> users = new HashSet<>();
 
@@ -202,11 +197,13 @@ public class Tenant implements Serializable {
 
     public Tenant addUsers(User user) {
         this.users.add(user);
+        user.setTenant(this);
         return this;
     }
 
     public Tenant removeUsers(User user) {
         this.users.remove(user);
+        user.setTenant(null);
         return this;
     }
 
@@ -229,7 +226,8 @@ public class Tenant implements Serializable {
         return this;
     }
 
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and
+    // setters here
 
     @Override
     public boolean equals(Object o) {
@@ -244,7 +242,8 @@ public class Tenant implements Serializable {
 
     @Override
     public int hashCode() {
-        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        // see
+        // https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
         return getClass().hashCode();
     }
 
@@ -252,13 +251,13 @@ public class Tenant implements Serializable {
     @Override
     public String toString() {
         return "Tenant{" +
-            "id=" + getId() +
-            ", companyName='" + getCompanyName() + "'" +
-            ", contactPerson='" + getContactPerson() + "'" +
-            ", logo='" + getLogo() + "'" +
-            ", website='" + getWebsite() + "'" +
-            ", registrationNumber='" + getRegistrationNumber() + "'" +
-            ", subId=" + getSubId() +
-            "}";
+                "id=" + getId() +
+                ", companyName='" + getCompanyName() + "'" +
+                ", contactPerson='" + getContactPerson() + "'" +
+                ", logo='" + getLogo() + "'" +
+                ", website='" + getWebsite() + "'" +
+                ", registrationNumber='" + getRegistrationNumber() + "'" +
+                ", subId=" + getSubId() +
+                "}";
     }
 }

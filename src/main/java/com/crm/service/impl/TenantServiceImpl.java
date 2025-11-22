@@ -9,6 +9,7 @@ import com.crm.service.dto.*;
 import com.crm.service.dto.TenantDTO;
 import com.crm.service.mapper.TenantMapper;
 import com.crm.service.UserService;
+import com.crm.repository.UserRepository;
 import com.crm.service.AddressService;
 import com.crm.domain.User;
 import java.util.LinkedList;
@@ -44,13 +45,16 @@ public class TenantServiceImpl implements TenantService {
 
     private final EncryptionRepository encryptionRepository;
 
+    private final UserRepository userRepository;
+
     public TenantServiceImpl(TenantRepository tenantRepository, TenantMapper tenantMapper, UserService userService,
-                             AddressService addressService, EncryptionRepository encryptionRepository) {
+            AddressService addressService, EncryptionRepository encryptionRepository, UserRepository userRepository) {
         this.tenantRepository = tenantRepository;
         this.tenantMapper = tenantMapper;
         this.userService = userService;
         this.addressService = addressService;
         this.encryptionRepository = encryptionRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -91,10 +95,6 @@ public class TenantServiceImpl implements TenantService {
         return tenantRepository.findAll(pageable).map(tenantMapper::toDto);
     }
 
-    public Page<TenantDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return tenantRepository.findAllWithEagerRelationships(pageable).map(tenantMapper::toDto);
-    }
-
     /**
      * Get all the tenants where Encryption is {@code null}.
      *
@@ -114,7 +114,7 @@ public class TenantServiceImpl implements TenantService {
     @Transactional(readOnly = true)
     public Optional<TenantDTO> findOne(Long id) {
         log.debug("Request to get Tenant : {}", id);
-        return tenantRepository.findOneWithEagerRelationships(id).map(tenantMapper::toDto);
+        return tenantRepository.findById(id).map(tenantMapper::toDto);
     }
 
     @Override
@@ -154,6 +154,7 @@ public class TenantServiceImpl implements TenantService {
         // Link User to Tenant
         tenant.addUsers(user);
         tenantRepository.save(tenant);
+        userRepository.save(user);
 
         Encryption encryption = new Encryption();
         encryption.setKey(EncryptionUtil.generateKey());

@@ -50,14 +50,6 @@ public interface TenantService {
     List<TenantDTO> findAllWhereEncryptionIsNull();
 
     /**
-     * Get all the tenants with eager load of many-to-many relationships.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
-    Page<TenantDTO> findAllWithEagerRelationships(Pageable pageable);
-
-    /**
      * Get the "id" tenant.
      *
      * @param id the id of the entity.

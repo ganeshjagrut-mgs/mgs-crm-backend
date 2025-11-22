@@ -2,6 +2,7 @@ package com.crm.domain;
 
 import com.crm.config.Constants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -84,14 +85,16 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
 
     @JsonIgnore
     @ManyToMany
-    @JoinTable(
-        name = "jhi_user_authority",
-        joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
-        inverseJoinColumns = { @JoinColumn(name = "authority_name", referencedColumnName = "name") }
-    )
+    @JoinTable(name = "jhi_user_authority", joinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
+                    @JoinColumn(name = "authority_name", referencedColumnName = "name") })
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "users", "addresses", "encryption" }, allowSetters = true)
+    private Tenant tenant;
 
     public Long getId() {
         return id;
@@ -198,6 +201,19 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
         this.authorities = authorities;
     }
 
+    public Tenant getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
+    }
+
+    public User tenant(Tenant tenant) {
+        this.setTenant(tenant);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -211,7 +227,8 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
 
     @Override
     public int hashCode() {
-        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        // see
+        // https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
         return getClass().hashCode();
     }
 
@@ -219,14 +236,14 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated='" + activated + '\'' +
-            ", langKey='" + langKey + '\'' +
-            ", activationKey='" + activationKey + '\'' +
-            "}";
+                "login='" + login + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", activated='" + activated + '\'' +
+                ", langKey='" + langKey + '\'' +
+                ", activationKey='" + activationKey + '\'' +
+                "}";
     }
 }

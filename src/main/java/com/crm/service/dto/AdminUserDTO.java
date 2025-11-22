@@ -51,6 +51,16 @@ public class AdminUserDTO implements Serializable {
 
     private Set<String> authorities;
 
+    private Long tenantId;
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -68,7 +78,11 @@ public class AdminUserDTO implements Serializable {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
+        this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
+        if (user.getTenant() != null) {
+            this.tenantId = user.getTenant().getId();
+        }
     }
 
     public Long getId() {
@@ -179,18 +193,18 @@ public class AdminUserDTO implements Serializable {
     @Override
     public String toString() {
         return "AdminUserDTO{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated=" + activated +
-            ", langKey='" + langKey + '\'' +
-            ", createdBy=" + createdBy +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
-            ", authorities=" + authorities +
-            "}";
+                "login='" + login + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", activated=" + activated +
+                ", langKey='" + langKey + '\'' +
+                ", createdBy=" + createdBy +
+                ", createdDate=" + createdDate +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", authorities=" + authorities +
+                "}";
     }
 }

@@ -3,15 +3,21 @@ package com.crm.web.rest;
 import static com.crm.security.SecurityUtils.AUTHORITIES_KEY;
 import static com.crm.security.SecurityUtils.JWT_ALGORITHM;
 
+import com.crm.domain.Tenant;
+import com.crm.domain.User;
+import com.crm.repository.TenantRepository;
+import com.crm.repository.UserRepository;
 import com.crm.web.rest.vm.LoginVM;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -46,9 +52,15 @@ public class AuthenticateController {
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    public AuthenticateController(JwtEncoder jwtEncoder, AuthenticationManagerBuilder authenticationManagerBuilder) {
+    private final UserRepository userRepository;
+
+    private final TenantRepository tenantRepository;
+
+    public AuthenticateController(JwtEncoder jwtEncoder, AuthenticationManagerBuilder authenticationManagerBuilder, UserRepository userRepository, TenantRepository tenantRepository) {
         this.jwtEncoder = jwtEncoder;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
+        this.userRepository = userRepository;
+        this.tenantRepository = tenantRepository;
     }
 
     @PostMapping("/authenticate")
@@ -59,6 +71,7 @@ public class AuthenticateController {
         );
 
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        System.out.println("authentication"+authentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = this.createToken(authentication, loginVM.isRememberMe());
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -88,6 +101,16 @@ public class AuthenticateController {
         } else {
             validity = now.plus(this.tokenValidityInSeconds, ChronoUnit.SECONDS);
         }
+        String login = authentication.getName();
+
+// Load user and get tenant.subId
+        Long tenantId = null;
+        Optional<User> userOpt = userRepository.findOneWithAuthoritiesByLogin(login);
+        if (userOpt.isPresent()) {
+            User user=userOpt.get();
+           Optional<Tenant> tenant= tenantRepository.findById(user.getId());
+            tenantId = tenant.get().getId();
+        }
 
         // @formatter:off
         JwtClaimsSet claims = JwtClaimsSet.builder()
@@ -95,6 +118,7 @@ public class AuthenticateController {
             .expiresAt(validity)
             .subject(authentication.getName())
             .claim(AUTHORITIES_KEY, authorities)
+            .claim("tenant_id",tenantId)
             .build();
 
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();

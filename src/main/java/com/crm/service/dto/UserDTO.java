@@ -21,7 +21,11 @@ public class UserDTO implements Serializable {
     public UserDTO(User user) {
         this.id = user.getId();
         // Customize it here if you need, or not, firstName/lastName/etc
+        // Customize it here if you need, or not, firstName/lastName/etc
         this.login = user.getLogin();
+        if (user.getTenant() != null) {
+            this.tenantId = user.getTenant().getId();
+        }
     }
 
     public Long getId() {
@@ -40,12 +44,22 @@ public class UserDTO implements Serializable {
         this.login = login;
     }
 
+    private Long tenantId;
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
     // prettier-ignore
     @Override
     public String toString() {
         return "UserDTO{" +
-            "id='" + id + '\'' +
-            ", login='" + login + '\'' +
-            "}";
+                "id='" + id + '\'' +
+                ", login='" + login + '\'' +
+                "}";
     }
 }

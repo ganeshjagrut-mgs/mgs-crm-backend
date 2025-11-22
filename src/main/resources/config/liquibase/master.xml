@@ -52,5 +52,6 @@
     <include file="config/liquibase/changelog/20251122122438_added_entity_constraints_State.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20251122122538_added_entity_constraints_City.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <include file="config/liquibase/changelog/20251122123000_add_tenant_to_user.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

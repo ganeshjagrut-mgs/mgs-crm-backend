@@ -2,7 +2,6 @@ package com.crm.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -16,7 +15,6 @@ import com.crm.service.TenantService;
 import com.crm.service.dto.TenantDTO;
 import com.crm.service.mapper.TenantMapper;
 import jakarta.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -27,8 +25,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -207,23 +203,6 @@ class TenantResourceIT {
                 .andExpect(jsonPath("$.[*].website").value(hasItem(DEFAULT_WEBSITE)))
                 .andExpect(jsonPath("$.[*].registrationNumber").value(hasItem(DEFAULT_REGISTRATION_NUMBER)))
                 .andExpect(jsonPath("$.[*].subId").value(hasItem(DEFAULT_SUB_ID)));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllTenantsWithEagerRelationshipsIsEnabled() throws Exception {
-        when(tenantServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restTenantMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(tenantServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllTenantsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(tenantServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restTenantMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
-        verify(tenantRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -1092,6 +1071,7 @@ class TenantResourceIT {
         tenantRegistrationDTO.setContactPerson("Contact Person");
         tenantRegistrationDTO.setAddressLine1("123 Main St");
         tenantRegistrationDTO.setPincode(123456);
+        tenantRegistrationDTO.setSecurityPin("123456");
 
         restTenantMockMvc
                 .perform(post(ENTITY_API_URL + "/register-tenant").contentType(MediaType.APPLICATION_JSON)

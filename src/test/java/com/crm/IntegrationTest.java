@@ -1,7 +1,7 @@
 package com.crm;
 
 import com.crm.config.AsyncSyncConfiguration;
-import com.crm.config.EmbeddedSQL;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -15,7 +15,7 @@ import org.springframework.test.annotation.DirtiesContext;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @SpringBootTest(classes = { CrmApp.class, AsyncSyncConfiguration.class })
-@EmbeddedSQL
+
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public @interface IntegrationTest {
 }

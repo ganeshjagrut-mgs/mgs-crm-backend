@@ -1,6 +1,7 @@
 package com.crm.service.mapper;
 
 import com.crm.domain.Authority;
+import com.crm.domain.Tenant;
 import com.crm.domain.User;
 import com.crm.service.dto.AdminUserDTO;
 import com.crm.service.dto.UserDTO;
@@ -14,7 +15,8 @@ import org.springframework.stereotype.Service;
 /**
  * Mapper for the entity {@link User} and its DTO called {@link UserDTO}.
  *
- * Normal mappers are generated using MapStruct, this one is hand-coded as MapStruct
+ * Normal mappers are generated using MapStruct, this one is hand-coded as
+ * MapStruct
  * support is still in beta, and requires a manual step with an IDE.
  */
 @Service
@@ -55,6 +57,11 @@ public class UserMapper {
             user.setLangKey(userDTO.getLangKey());
             Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
             user.setAuthorities(authorities);
+            if (userDTO.getTenantId() != null) {
+                Tenant tenant = new Tenant();
+                tenant.setId(userDTO.getTenantId());
+                user.setTenant(tenant);
+            }
             return user;
         }
     }
@@ -63,8 +70,7 @@ public class UserMapper {
         Set<Authority> authorities = new HashSet<>();
 
         if (authoritiesAsString != null) {
-            authorities =
-                authoritiesAsString
+            authorities = authoritiesAsString
                     .stream()
                     .map(string -> {
                         Authority auth = new Authority();
