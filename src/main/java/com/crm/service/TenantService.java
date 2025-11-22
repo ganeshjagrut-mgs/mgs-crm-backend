@@ -71,4 +71,12 @@ public interface TenantService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Register a new tenant.
+     *
+     * @param tenantRegistrationDTO the entity to register.
+     * @return the persisted tenant.
+     */
+    TenantDTO registerTenant(com.crm.service.dto.TenantRegistrationDTO tenantRegistrationDTO);
 }

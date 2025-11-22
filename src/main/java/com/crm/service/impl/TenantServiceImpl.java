@@ -4,7 +4,16 @@ import com.crm.domain.Tenant;
 import com.crm.repository.TenantRepository;
 import com.crm.service.TenantService;
 import com.crm.service.dto.TenantDTO;
+import com.crm.service.dto.TenantDTO;
 import com.crm.service.mapper.TenantMapper;
+import com.crm.service.UserService;
+import com.crm.service.AddressService;
+import com.crm.service.dto.AdminUserDTO;
+import com.crm.service.dto.AddressDTO;
+import com.crm.service.dto.CityDTO;
+import com.crm.service.dto.StateDTO;
+import com.crm.service.dto.CountryDTO;
+import com.crm.domain.User;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -30,9 +39,16 @@ public class TenantServiceImpl implements TenantService {
 
     private final TenantMapper tenantMapper;
 
-    public TenantServiceImpl(TenantRepository tenantRepository, TenantMapper tenantMapper) {
+    private final UserService userService;
+
+    private final AddressService addressService;
+
+    public TenantServiceImpl(TenantRepository tenantRepository, TenantMapper tenantMapper, UserService userService,
+            AddressService addressService) {
         this.tenantRepository = tenantRepository;
         this.tenantMapper = tenantMapper;
+        this.userService = userService;
+        this.addressService = addressService;
     }
 
     @Override
@@ -56,14 +72,14 @@ public class TenantServiceImpl implements TenantService {
         log.debug("Request to partially update Tenant : {}", tenantDTO);
 
         return tenantRepository
-            .findById(tenantDTO.getId())
-            .map(existingTenant -> {
-                tenantMapper.partialUpdate(existingTenant, tenantDTO);
+                .findById(tenantDTO.getId())
+                .map(existingTenant -> {
+                    tenantMapper.partialUpdate(existingTenant, tenantDTO);
 
-                return existingTenant;
-            })
-            .map(tenantRepository::save)
-            .map(tenantMapper::toDto);
+                    return existingTenant;
+                })
+                .map(tenantRepository::save)
+                .map(tenantMapper::toDto);
     }
 
     @Override
@@ -78,17 +94,18 @@ public class TenantServiceImpl implements TenantService {
     }
 
     /**
-     *  Get all the tenants where Encryption is {@code null}.
-     *  @return the list of entities.
+     * Get all the tenants where Encryption is {@code null}.
+     * 
+     * @return the list of entities.
      */
     @Transactional(readOnly = true)
     public List<TenantDTO> findAllWhereEncryptionIsNull() {
         log.debug("Request to get all tenants where Encryption is null");
         return StreamSupport
-            .stream(tenantRepository.findAll().spliterator(), false)
-            .filter(tenant -> tenant.getEncryption() == null)
-            .map(tenantMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+                .stream(tenantRepository.findAll().spliterator(), false)
+                .filter(tenant -> tenant.getEncryption() == null)
+                .map(tenantMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override
@@ -102,5 +119,66 @@ public class TenantServiceImpl implements TenantService {
     public void delete(Long id) {
         log.debug("Request to delete Tenant : {}", id);
         tenantRepository.deleteById(id);
+    }
+
+    @Override
+    public TenantDTO registerTenant(com.crm.service.dto.TenantRegistrationDTO tenantRegistrationDTO) {
+        log.debug("Request to register Tenant : {}", tenantRegistrationDTO);
+
+        // 1. Create and Save User
+        AdminUserDTO userDTO = new AdminUserDTO();
+        userDTO.setLogin(tenantRegistrationDTO.getLogin());
+        userDTO.setFirstName(tenantRegistrationDTO.getFirstName());
+        userDTO.setLastName(tenantRegistrationDTO.getLastName());
+        userDTO.setEmail(tenantRegistrationDTO.getEmail());
+        userDTO.setLangKey(tenantRegistrationDTO.getLangKey());
+        userDTO.setActivated(true);
+
+        User user = userService.registerUser(userDTO, tenantRegistrationDTO.getPassword());
+        user.setActivated(true);
+
+        // 2. Create and Save Tenant
+        TenantDTO tenantDTO = new TenantDTO();
+        tenantDTO.setCompanyName(tenantRegistrationDTO.getCompanyName());
+        tenantDTO.setContactPerson(tenantRegistrationDTO.getContactPerson());
+        tenantDTO.setLogo(tenantRegistrationDTO.getLogo());
+        tenantDTO.setWebsite(tenantRegistrationDTO.getWebsite());
+        tenantDTO.setRegistrationNumber(tenantRegistrationDTO.getRegistrationNumber());
+
+        Tenant tenant = tenantMapper.toEntity(tenantDTO);
+        tenant = tenantRepository.save(tenant);
+
+        // Link User to Tenant
+        tenant.addUsers(user);
+        tenantRepository.save(tenant);
+
+        TenantDTO savedTenantDTO = tenantMapper.toDto(tenant);
+
+        // 3. Create and Save Address
+        AddressDTO addressDTO = new AddressDTO();
+        addressDTO.setAddressLine1(tenantRegistrationDTO.getAddressLine1());
+        addressDTO.setAddressLine2(tenantRegistrationDTO.getAddressLine2());
+        addressDTO.setPincode(tenantRegistrationDTO.getPincode());
+
+        if (tenantRegistrationDTO.getCityId() != null) {
+            CityDTO cityDTO = new CityDTO();
+            cityDTO.setId(tenantRegistrationDTO.getCityId());
+            addressDTO.setCity(cityDTO);
+        }
+        if (tenantRegistrationDTO.getStateId() != null) {
+            StateDTO stateDTO = new StateDTO();
+            stateDTO.setId(tenantRegistrationDTO.getStateId());
+            addressDTO.setState(stateDTO);
+        }
+        if (tenantRegistrationDTO.getCountryId() != null) {
+            CountryDTO countryDTO = new CountryDTO();
+            countryDTO.setId(tenantRegistrationDTO.getCountryId());
+            addressDTO.setCountry(countryDTO);
+        }
+
+        addressDTO.setTenant(savedTenantDTO);
+        addressService.save(addressDTO);
+
+        return savedTenantDTO;
     }
 }
