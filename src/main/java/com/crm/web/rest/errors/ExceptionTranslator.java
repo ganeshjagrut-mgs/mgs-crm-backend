@@ -87,6 +87,10 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
             .getBody();
         if (ex instanceof com.crm.service.InvalidPasswordException) return (ProblemDetailWithCause) new InvalidPasswordException()
             .getBody();
+        if (ex instanceof com.crm.web.rest.errors.TenantNotFoundException) return (ProblemDetailWithCause) ((com.crm.web.rest.errors.TenantNotFoundException) ex)
+            .getBody();
+        if (ex instanceof com.crm.web.rest.errors.UserNotFoundException) return (ProblemDetailWithCause) ((com.crm.web.rest.errors.UserNotFoundException) ex)
+            .getBody();
 
         if (
             ex instanceof ErrorResponseException exp && exp.getBody() instanceof ProblemDetailWithCause problemDetailWithCause

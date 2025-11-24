@@ -103,13 +103,20 @@ public class AuthenticateController {
         }
         String login = authentication.getName();
 
-// Load user and get tenant.subId
+        // Load user and get tenant ID
         Long tenantId = null;
         Optional<User> userOpt = userRepository.findOneWithAuthoritiesByLogin(login);
         if (userOpt.isPresent()) {
-            User user=userOpt.get();
-           Optional<Tenant> tenant= tenantRepository.findById(user.getId());
-            tenantId = tenant.get().getId();
+            User user = userOpt.get();
+            Tenant tenant = user.getTenant();
+            if (tenant == null) {
+                log.error("User {} does not have an associated tenant", login);
+                throw new com.crm.web.rest.errors.TenantNotFoundException("User " + login + " does not have an associated tenant");
+            }
+            tenantId = tenant.getId();
+        } else {
+            log.error("User {} not found in database", login);
+            throw new com.crm.web.rest.errors.UserNotFoundException("User " + login + " not found");
         }
 
         // @formatter:off
