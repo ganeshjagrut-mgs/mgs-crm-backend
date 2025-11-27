@@ -1,0 +1,17 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "authenticationType": "jwt",
+    "baseName": "crm",
+    "buildTool": "maven",
+    "enableTranslation": false,
+    "entities": [],
+    "jhiPrefix": "mt",
+    "jhipsterVersion": "8.11.0",
+    "jwtSecretKey": "Y2RmYWI2ZTdhOGE5ZTBkNzUyZTFmZDEyZDA2YTI5MmU3MmM4NGMxYTY2NTRmM2Q4ZjVjYjJlOGNmMDcyYzY4MTI2ZTkwNDM5YzVhZGQ2OTQzYTU2NjJhZTc2MDU2NWRkYTVmNGNhNThhZjUyMjYyODliYzhjNWEzNThmNTRiN2Q=",
+    "nativeLanguage": "en",
+    "packageName": "com.mgs",
+    "prodDatabaseType": "postgresql",
+    "skipUserManagement": true
+  }
+}
