@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Complaint.
+    -->
+    <changeSet id="20251127154334-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="tenant_id"
+                                 baseTableName="complaint"
+                                 constraintName="fk_complaint__tenant_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tenant"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="complaint"
+                                 constraintName="fk_complaint__customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="contact_id"
+                                 baseTableName="complaint"
+                                 constraintName="fk_complaint__contact_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="contact"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="category_id"
+                                 baseTableName="complaint"
+                                 constraintName="fk_complaint__category_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="complaint_category"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="pipeline_id"
+                                 baseTableName="complaint"
+                                 constraintName="fk_complaint__pipeline_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pipeline"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="stage_id"
+                                 baseTableName="complaint"
+                                 constraintName="fk_complaint__stage_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sub_pipeline"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="assigned_department_id"
+                                 baseTableName="complaint"
+                                 constraintName="fk_complaint__assigned_department_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="department"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="assigned_user_id"
+                                 baseTableName="complaint"
+                                 constraintName="fk_complaint__assigned_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mt_user"
+                                 />
+    </changeSet>
+</databaseChangeLog>

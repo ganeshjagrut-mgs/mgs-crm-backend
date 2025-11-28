@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Quotation.
+    -->
+    <changeSet id="20251127154331-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="tenant_id"
+                                 baseTableName="quotation"
+                                 constraintName="fk_quotation__tenant_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tenant"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="quotation"
+                                 constraintName="fk_quotation__customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="contact_id"
+                                 baseTableName="quotation"
+                                 constraintName="fk_quotation__contact_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="contact"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="lead_id"
+                                 baseTableName="quotation"
+                                 constraintName="fk_quotation__lead_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lead"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="created_by_user_id"
+                                 baseTableName="quotation"
+                                 constraintName="fk_quotation__created_by_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mt_user"
+                                 />
+    </changeSet>
+</databaseChangeLog>

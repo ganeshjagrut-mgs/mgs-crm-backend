@@ -1,0 +1,87 @@
+package com.mgs.service.dto;
+
+import jakarta.validation.constraints.*;
+import java.io.Serializable;
+import java.util.Objects;
+
+/**
+ * A DTO for the {@link com.mgs.domain.UserRole} entity.
+ */
+@SuppressWarnings("common-java:DuplicatedBlocks")
+public class UserRoleDTO implements Serializable {
+
+    private Long id;
+
+    @NotNull
+    private TenantDTO tenant;
+
+    @NotNull
+    private UserDTO user;
+
+    @NotNull
+    private RoleDTO role;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public TenantDTO getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(TenantDTO tenant) {
+        this.tenant = tenant;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    public RoleDTO getRole() {
+        return role;
+    }
+
+    public void setRole(RoleDTO role) {
+        this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UserRoleDTO)) {
+            return false;
+        }
+
+        UserRoleDTO userRoleDTO = (UserRoleDTO) o;
+        if (this.id == null) {
+            return false;
+        }
+        return Objects.equals(this.id, userRoleDTO.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id);
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+        return "UserRoleDTO{" +
+            "id=" + getId() +
+            ", tenant=" + getTenant() +
+            ", user=" + getUser() +
+            ", role=" + getRole() +
+            "}";
+    }
+}

@@ -1,0 +1,71 @@
+{
+  "annotations": {
+    "changelogDate": "20251127154305"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "maxUsers",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "maxStorageMb",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "maxCustomers",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "maxContacts",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "maxQuotations",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "maxComplaints",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "pricePerMonth",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "currency",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "10"
+    },
+    {
+      "fieldName": "isActive",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Plan",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

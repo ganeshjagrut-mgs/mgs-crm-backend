@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Lead.
+    -->
+    <changeSet id="20251127154329-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="tenant_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__tenant_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tenant"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="contact_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__contact_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="contact"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="source_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__source_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lead_source"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="pipeline_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__pipeline_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pipeline"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="stage_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__stage_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sub_pipeline"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="owner_user_id"
+                                 baseTableName="lead"
+                                 constraintName="fk_lead__owner_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mt_user"
+                                 />
+    </changeSet>
+</databaseChangeLog>

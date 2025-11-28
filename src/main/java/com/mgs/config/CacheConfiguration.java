@@ -45,6 +45,48 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
+            createCache(cm, com.mgs.domain.SystemUser.class.getName());
+            createCache(cm, com.mgs.domain.Plan.class.getName());
+            createCache(cm, com.mgs.domain.Tenant.class.getName());
+            createCache(cm, com.mgs.domain.TenantSubscription.class.getName());
+            createCache(cm, com.mgs.domain.TenantEncryptionKey.class.getName());
+            createCache(cm, com.mgs.domain.Country.class.getName());
+            createCache(cm, com.mgs.domain.State.class.getName());
+            createCache(cm, com.mgs.domain.City.class.getName());
+            createCache(cm, com.mgs.domain.Address.class.getName());
+            createCache(cm, com.mgs.domain.TenantProfile.class.getName());
+            createCache(cm, com.mgs.domain.TenantBranding.class.getName());
+            createCache(cm, com.mgs.domain.User.class.getName());
+            createCache(cm, com.mgs.domain.Role.class.getName());
+            createCache(cm, com.mgs.domain.UserRole.class.getName());
+            createCache(cm, com.mgs.domain.PermissionModule.class.getName());
+            createCache(cm, com.mgs.domain.RolePermission.class.getName());
+            createCache(cm, com.mgs.domain.UserHierarchy.class.getName());
+            createCache(cm, com.mgs.domain.Department.class.getName());
+            createCache(cm, com.mgs.domain.UserDepartment.class.getName());
+            createCache(cm, com.mgs.domain.Customer.class.getName());
+            createCache(cm, com.mgs.domain.Contact.class.getName());
+            createCache(cm, com.mgs.domain.LeadSource.class.getName());
+            createCache(cm, com.mgs.domain.Pipeline.class.getName());
+            createCache(cm, com.mgs.domain.SubPipeline.class.getName());
+            createCache(cm, com.mgs.domain.Product.class.getName());
+            createCache(cm, com.mgs.domain.Lead.class.getName());
+            createCache(cm, com.mgs.domain.Deal.class.getName());
+            createCache(cm, com.mgs.domain.Quotation.class.getName());
+            createCache(cm, com.mgs.domain.QuotationItem.class.getName());
+            createCache(cm, com.mgs.domain.ComplaintCategory.class.getName());
+            createCache(cm, com.mgs.domain.Complaint.class.getName());
+            createCache(cm, com.mgs.domain.Ticket.class.getName());
+            createCache(cm, com.mgs.domain.TaskType.class.getName());
+            createCache(cm, com.mgs.domain.Task.class.getName());
+            createCache(cm, com.mgs.domain.TaskComment.class.getName());
+            createCache(cm, com.mgs.domain.Event.class.getName());
+            createCache(cm, com.mgs.domain.EventTaskAssignment.class.getName());
+            createCache(cm, com.mgs.domain.Notification.class.getName());
+            createCache(cm, com.mgs.domain.EventNotification.class.getName());
+            createCache(cm, com.mgs.domain.ReportTemplate.class.getName());
+            createCache(cm, com.mgs.domain.ReportRun.class.getName());
+            createCache(cm, com.mgs.domain.AuditLog.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

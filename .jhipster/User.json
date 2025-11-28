@@ -1,0 +1,59 @@
+{
+  "annotations": {
+    "changelogDate": "20251127154315"
+  },
+  "applications": "*",
+  "documentation": "Tenant-scoped Application User (table name: user)",
+  "dto": "mapstruct",
+  "entityTableName": "mt_user",
+  "fields": [
+    {
+      "documentation": "PII – encrypted long string",
+      "fieldName": "email",
+      "fieldType": "TextBlob",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "PII – encrypted long string",
+      "fieldName": "phone",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "passwordHash",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "documentation": "PII – encrypted long string",
+      "fieldName": "firstName",
+      "fieldType": "TextBlob",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "PII – encrypted long string",
+      "fieldName": "lastName",
+      "fieldType": "TextBlob",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isActive",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "User",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "tenant",
+      "relationshipName": "tenant",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

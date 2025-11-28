@@ -1,0 +1,11 @@
+id;ticket_number;subject;description;priority;status;tenant_id;customer_id
+1;afore;righteously delightfully;tall subtle;LOW;OPEN;1;1
+2;till;apostrophize volunteer;congregate;MEDIUM;ON_HOLD;2;2
+3;as ack knickers;drug;despite colorfully lean;CRITICAL;ON_HOLD;3;3
+4;silent wherever;ignite;ack ethyl;CRITICAL;RESOLVED;4;4
+5;loosely uncork rigidly;as colour footrest;reckon fooey;CRITICAL;REOPENED;5;5
+6;artistic times;eek;by but;LOW;RESOLVED;6;6
+7;outside angrily ew;besides so;larva slushy;MEDIUM;IN_PROGRESS;7;7
+8;platter traditionalism;searchingly alongside midst;fisherman doting;MEDIUM;CLOSED;8;8
+9;yippee;considerate zealous;so;MEDIUM;ON_HOLD;9;9
+10;to;gadzooks hence;out;CRITICAL;ON_HOLD;10;10

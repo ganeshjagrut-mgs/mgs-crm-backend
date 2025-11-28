@@ -1,0 +1,156 @@
+{
+  "annotations": {
+    "changelogDate": "20251127154331"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "quoteNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "50"
+    },
+    {
+      "fieldName": "estimateDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "validUntil",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "QuotationStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "DRAFT,SENT,ACCEPTED,REJECTED,EXPIRED"
+    },
+    {
+      "fieldName": "revisionNumber",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "currency",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "10"
+    },
+    {
+      "fieldName": "subtotal",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "itemDiscountTotal",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "globalDiscountType",
+      "fieldType": "DiscountType",
+      "fieldValues": "PERCENT,AMOUNT"
+    },
+    {
+      "fieldName": "globalDiscountValue",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "globalDiscountAmount",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "taxableAmount",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "totalTax",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "shippingAmount",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "otherChargesAmount",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "roundOffAmount",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "totalAmount",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "headerNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "footerNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "termsAndConditions",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referenceNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastSentAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "pdfTemplateCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Quotation",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "tenant",
+      "relationshipName": "tenant",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "customer",
+      "relationshipName": "customer",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "contact",
+      "relationshipName": "contact",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "lead",
+      "relationshipName": "lead",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "user",
+      "relationshipName": "createdByUser",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

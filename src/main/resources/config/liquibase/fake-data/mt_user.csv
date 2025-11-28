@@ -1,0 +1,11 @@
+id;email;phone;password_hash;first_name;last_name;is_active;tenant_id
+1;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;reproachfully yippee eek;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;false;1
+2;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;zowie;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;false;2
+3;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;lovingly snowplow yearly;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;false;3
+4;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;pish psst and;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;false;4
+5;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;manipulate besides geez;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;false;5
+6;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;down;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;true;6
+7;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;incinerate railway yowza;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;true;7
+8;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;questionable electrify pant;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;true;8
+9;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;how;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;false;9
+10;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;excluding yet;../fake-data/blob/hipster.txt;../fake-data/blob/hipster.txt;true;10

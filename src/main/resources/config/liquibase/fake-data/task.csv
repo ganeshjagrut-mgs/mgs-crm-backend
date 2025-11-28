@@ -1,0 +1,11 @@
+id;title;description;related_type;status;priority;due_at;completed_at;tenant_id;assigned_user_id;created_by_user_id
+1;from yearningly;during whose numeric;wetly blaspheme woot;CANCELLED;LOW;2025-11-26T22:08:56;2025-11-27T10:48:21;1;1;1
+2;delectable yum;blah phew hungry;faithfully so;COMPLETED;LOW;2025-11-27T11:50:27;2025-11-27T00:43:44;2;2;2
+3;amnesty;terraform;elderly;CANCELLED;LOW;2025-11-27T11:29:42;2025-11-27T04:40:10;3;3;3
+4;supposing;cruelly yum;cycle telescope;TODO;URGENT;2025-11-26T22:23:24;2025-11-27T09:20:08;4;4;4
+5;categorise;fully;while unfortunately duh;CANCELLED;URGENT;2025-11-27T03:21:50;2025-11-27T08:14:33;5;5;5
+6;soon concerning;which;solemnly;IN_PROGRESS;MEDIUM;2025-11-27T08:42:36;2025-11-27T13:55:45;6;6;6
+7;equally opposite;catch;arrogantly forearm furiously;CANCELLED;MEDIUM;2025-11-26T20:20:37;2025-11-26T18:15:23;7;7;7
+8;jaywalk after monthly;against markup unwilling;which;CANCELLED;LOW;2025-11-26T20:04:55;2025-11-26T21:43:08;8;8;8
+9;yet;dress gah torn;ha;TODO;URGENT;2025-11-27T07:35:39;2025-11-26T17:25:46;9;9;9
+10;save;merrily masterpiece;epic retrospectivity among;IN_PROGRESS;LOW;2025-11-27T10:26:42;2025-11-27T05:31:27;10;10;10

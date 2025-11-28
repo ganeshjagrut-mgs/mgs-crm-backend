@@ -1,0 +1,11 @@
+id;complaint_number;subject;description;priority;status;source;tenant_id;customer_id
+1;ha;wing crowded;kookily pulp ultimately;HIGH;REOPENED;EMAIL;1;1
+2;out boo yowza;duh motivate;turret zowie bah;CRITICAL;ON_HOLD;OTHER;2;2
+3;formula towards energetically;decision;give mechanically;MEDIUM;OPEN;OTHER;3;3
+4;greedily intelligent;hm generally bolster;once besides;LOW;REOPENED;PHONE;4;4
+5;after disappointment though;meh;odd passport vague;HIGH;CLOSED;SOCIAL;5;5
+6;bench sans custom;unripe unit clamour;back;HIGH;IN_PROGRESS;PHONE;6;6
+7;whether;indolent endow;and jot athwart;CRITICAL;IN_PROGRESS;PORTAL;7;7
+8;yowza youthfully;forswear infamous;ha;CRITICAL;REOPENED;PHONE;8;8
+9;jagged pro bob;however boohoo geez;fairly;LOW;ON_HOLD;SOCIAL;9;9
+10;questionable;pendant mid verve;elegant woot;LOW;CLOSED;OTHER;10;10

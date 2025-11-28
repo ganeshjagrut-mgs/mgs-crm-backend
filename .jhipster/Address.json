@@ -1,0 +1,45 @@
+{
+  "annotations": {
+    "changelogDate": "20251127154312"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "addressType",
+      "fieldType": "AddressType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "BILLING,SHIPPING,OFFICE,HOME,OTHER"
+    },
+    {
+      "documentation": "PII – encrypted long string",
+      "fieldName": "line1",
+      "fieldType": "TextBlob",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "PII – encrypted long string",
+      "fieldName": "line2",
+      "fieldType": "TextBlob"
+    },
+    {
+      "documentation": "PII – encrypted long string",
+      "fieldName": "postalCode",
+      "fieldType": "TextBlob"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Address",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "tenant",
+      "relationshipName": "tenant",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

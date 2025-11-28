@@ -1,0 +1,59 @@
+{
+  "annotations": {
+    "changelogDate": "20251127154314"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "logoPath",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "logoDarkPath",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "faviconPath",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryColor",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryColor",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "accentColor",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pdfHeaderLogoPath",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pdfFooterText",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pdfPrimaryColor",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "TenantBranding",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "tenant",
+      "relationshipName": "tenant",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

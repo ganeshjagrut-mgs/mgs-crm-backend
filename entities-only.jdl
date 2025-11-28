@@ -1,0 +1,688 @@
+/**
+ * Enums
+ */
+enum TenantStatus {
+  ACTIVE, SUSPENDED, TRIAL, CLOSED
+}
+
+enum SubscriptionStatus {
+  TRIAL, ACTIVE, EXPIRED, CANCELLED
+}
+
+enum CustomerType {
+  INDIVIDUAL, ORGANIZATION
+}
+
+enum CustomerStatus {
+  PROSPECT, ACTIVE, INACTIVE, CHURNED
+}
+
+enum PipelineModule {
+  LEAD, DEAL, COMPLAINT, GENERAL
+}
+
+enum LeadStatus {
+  NEW, CONTACTED, QUALIFIED, DISQUALIFIED, CONVERTED
+}
+
+enum QuotationStatus {
+  DRAFT, SENT, ACCEPTED, REJECTED, EXPIRED
+}
+
+enum DiscountType {
+  PERCENT, AMOUNT
+}
+
+enum ComplaintStatus {
+  OPEN, IN_PROGRESS, ON_HOLD, RESOLVED, CLOSED, REOPENED
+}
+
+enum ComplaintPriority {
+  LOW, MEDIUM, HIGH, CRITICAL
+}
+
+enum ComplaintSource {
+  EMAIL, PHONE, PORTAL, CHAT, SOCIAL, OTHER
+}
+
+enum TaskStatus {
+  TODO, IN_PROGRESS, COMPLETED, CANCELLED
+}
+
+enum TaskPriority {
+  LOW, MEDIUM, HIGH, URGENT
+}
+
+enum AddressType {
+  BILLING, SHIPPING, OFFICE, HOME, OTHER
+}
+
+enum DealStatus {
+  NEW, WON, LOST, CLOSED
+}
+
+enum TicketStatus {
+  OPEN, IN_PROGRESS, ON_HOLD, RESOLVED, CLOSED, REOPENED
+}
+
+enum TicketPriority {
+  LOW, MEDIUM, HIGH, CRITICAL
+}
+
+
+// ======================================================
+// 1. System-level users & plans (global)
+// ======================================================
+
+entity SystemUser  {
+  email           String required maxlength(255)
+  passwordHash    String required maxlength(255)
+  isSuperAdmin    Boolean required
+
+}
+
+entity Plan  {
+  code            String required maxlength(50)
+  name            String required maxlength(100)
+  description     String
+  maxUsers        Integer
+  maxStorageMb    Integer
+  maxCustomers    Integer
+  maxContacts     Integer
+  maxQuotations   Integer
+  maxComplaints   Integer
+  pricePerMonth   BigDecimal required
+  currency        String required maxlength(10)
+  isActive        Boolean required
+
+}
+
+
+// ======================================================
+// 2. Tenants, subscriptions, encryption
+// ======================================================
+
+entity Tenant  {
+  name            String required maxlength(255)
+  code            String required maxlength(50)
+  status          TenantStatus required
+
+}
+
+entity TenantSubscription  {
+  status          SubscriptionStatus required
+  startDate       LocalDate required
+  endDate         LocalDate
+  trialEndDate    LocalDate
+  lastRenewedAt   Instant
+  nextBillingAt   Instant
+
+}
+
+entity TenantEncryptionKey  {
+  keyVersion      Integer required
+  encryptedDataKey String required
+  pinHash         String
+  pinSalt         String
+  isActive        Boolean required
+}
+
+
+// ======================================================
+// 3. Geo & Addresses
+// ======================================================
+
+entity Country  {
+  isoCode2        String  minlength(2) maxlength(10)
+  isoCode3        String  minlength(3) maxlength(10)
+  name            String required maxlength(100)
+
+}
+
+entity State  {
+  name            String required maxlength(100)
+  code            String  minlength(2) maxlength(10)
+
+}
+
+entity City  {
+  name            String required maxlength(100)
+  code            String  minlength(2) maxlength(10)
+}
+
+entity Address  {
+  addressType     AddressType required
+
+  /** PII – encrypted long string */
+  line1           TextBlob required
+  /** PII – encrypted long string */
+  line2           TextBlob
+  /** PII – encrypted long string */
+  postalCode      TextBlob
+
+}
+
+
+// ======================================================
+// 4. Tenant profile & branding
+// ======================================================
+
+entity TenantProfile  {
+  subdomain       String maxlength(100)
+  customDomain    String maxlength(255)
+  domainVerified  Boolean required
+
+  /** PII – encrypted long string */
+  legalName       TextBlob required
+  /** PII – encrypted long string */
+  shortName       TextBlob
+  /** PII – encrypted long string */
+  registrationNumber TextBlob
+  /** PII – encrypted long string */
+  taxId           TextBlob
+
+  /** Contact PII – encrypted long string */
+  contactPerson   TextBlob
+  contactEmail    TextBlob
+  contactPhone    TextBlob
+  websiteUrl      TextBlob
+
+  defaultLocale   String  maxlength(10)
+  timezone        String  maxlength(50)
+}
+
+entity TenantBranding  {
+  logoPath        String
+  logoDarkPath    String
+  faviconPath     String
+  primaryColor    String
+  secondaryColor  String
+  accentColor     String
+  pdfHeaderLogoPath String
+  pdfFooterText   String
+  pdfPrimaryColor String
+}
+
+
+// ======================================================
+// 5. Users, Roles, Permissions, Hierarchy, Departments
+// ======================================================
+
+/** Tenant-scoped Application User (table name: user) */
+entity User  {
+  /** PII – encrypted long string */
+  email           TextBlob required
+
+  /** PII – encrypted long string */
+  phone           TextBlob
+
+  passwordHash    String required maxlength(255)
+
+  /** PII – encrypted long string */
+  firstName       TextBlob required
+
+  /** PII – encrypted long string */
+  lastName        TextBlob required
+
+  isActive        Boolean required
+
+}
+
+entity Role  {
+  name            String required maxlength(100)
+  code            String maxlength(100)
+  isSystem        Boolean
+  roleLevel       Integer
+
+}
+
+entity UserRole  {}
+
+entity PermissionModule  {
+  name            String required maxlength(100)
+  description     String
+}
+
+entity RolePermission  {
+  canRead         Boolean required
+  canCreate       Boolean required
+  canUpdate       Boolean required
+  canDelete       Boolean required
+
+}
+
+entity UserHierarchy  {
+  relationshipType String  maxlength(30)
+}
+
+entity Department  {
+  name            String required maxlength(255)
+  nameSearch      String maxlength(255)
+  type            String maxlength(30)
+  isActive        Boolean
+}
+
+entity UserDepartment  {}
+
+
+// ======================================================
+// 6. Customers & Contacts
+// ======================================================
+
+entity Customer  {
+  name            TextBlob required
+  customerType    CustomerType
+  status          CustomerStatus
+  segment         String maxlength(255)
+  industry        String maxlength(255)
+}
+
+entity Contact  {
+  /** PII – encrypted long string */
+  firstName       TextBlob required
+  /** PII – encrypted long string */
+  lastName        TextBlob required
+  /** PII – encrypted long string */
+  email           TextBlob
+  /** PII – encrypted long string */
+  phone           TextBlob
+  /** May contain PII – encrypted long string */
+  notes           TextBlob
+
+}
+
+
+// ======================================================
+// 7. Lead Sources, Pipelines, Sub-pipelines
+// ======================================================
+
+entity LeadSource  {
+  name            String required maxlength(255)
+  nameSearch      String maxlength(255)
+  isActive        Boolean
+
+}
+
+entity Pipeline  {
+  name            String required maxlength(255)
+  nameSearch      String maxlength(255)
+  module          PipelineModule required
+  isDefault       Boolean
+
+}
+
+entity SubPipeline  {
+  name            String required maxlength(255)
+  nameSearch      String maxlength(255)
+  sequenceOrder   Integer required
+  probability     Integer
+  isClosingStage  Boolean required
+}
+
+
+// ======================================================
+// 8. Products
+// ======================================================
+
+entity Product  {
+  name            String required maxlength(255)
+  nameSearch      String maxlength(255)
+  sku             String maxlength(100)
+  description     String
+  category        String maxlength(100)
+  unitLabel       String maxlength(50)
+  basePrice       BigDecimal
+  currency        String  maxlength(10)
+  isActive        Boolean
+
+}
+
+
+// ======================================================
+// 9. Leads & Deals
+// ======================================================
+
+entity Lead  {
+  title           String required
+  status          LeadStatus required
+  estimatedValue  BigDecimal
+  currency        String maxlength(10)
+  notes           String
+
+}
+
+entity Deal  {
+  dealNumber      String required maxlength(50)
+  dealValue       BigDecimal
+  status          DealStatus required
+  currency        String  maxlength(10)
+  startDate       Instant
+  closeDate       Instant
+  notes           String
+
+}
+
+
+// ======================================================
+// 10. Quotations & Items
+// ======================================================
+
+entity Quotation  {
+  quoteNumber         String required maxlength(50)
+  estimateDate        LocalDate required
+  validUntil          LocalDate
+  status              QuotationStatus required
+  revisionNumber      Integer
+  currency            String required maxlength(10)
+
+  subtotal            BigDecimal required
+  itemDiscountTotal   BigDecimal
+  globalDiscountType  DiscountType
+  globalDiscountValue BigDecimal
+  globalDiscountAmount BigDecimal
+  taxableAmount       BigDecimal
+  totalTax            BigDecimal
+  shippingAmount      BigDecimal
+  otherChargesAmount  BigDecimal
+  roundOffAmount      BigDecimal
+  totalAmount         BigDecimal required
+
+  title               String
+  headerNotes         String
+  footerNotes         String
+  termsAndConditions  String
+  referenceNumber     String
+
+  lastSentAt          Instant
+  pdfTemplateCode     String maxlength(100)
+
+}
+
+entity QuotationItem  {
+  productName         String required maxlength(255)
+  productSku          String maxlength(100)
+  productDescription  String
+  unitLabel           String maxlength(50)
+
+  quantity            BigDecimal required
+  unitPrice           BigDecimal required
+
+  discountType        DiscountType
+  discountValue       BigDecimal
+  discountAmount      BigDecimal
+
+  taxableAmount       BigDecimal
+  taxRate             BigDecimal
+  taxAmount           BigDecimal
+
+  lineTotal           BigDecimal
+  sortOrder           Integer
+}
+
+
+// ======================================================
+// 11. Complaints, Tickets, Categories
+// ======================================================
+
+entity ComplaintCategory  {
+  name            String required maxlength(100)
+  isActive        Boolean
+
+}
+
+entity Complaint  {
+  complaintNumber String required maxlength(50)
+  subject         String required
+  description     String
+  priority        ComplaintPriority required
+  status          ComplaintStatus required
+  source          ComplaintSource
+
+}
+
+entity Ticket  {
+  ticketNumber    String required maxlength(50)
+  subject         String required maxlength(255)
+  description     String
+  priority        TicketPriority required
+  status          TicketStatus required
+}
+
+
+// ======================================================
+// 12. Task Types, Tasks, Comments
+// ======================================================
+
+entity TaskType  {
+  name            String required maxlength(255)
+  isActive        Boolean
+
+}
+
+entity Task  {
+  title           String required maxlength(255)
+  description     String
+  relatedType     String maxlength(30)
+  status          TaskStatus required
+  priority        TaskPriority required
+  dueAt           Instant
+  completedAt     Instant
+}
+
+entity TaskComment  {
+  comment         String required
+}
+
+
+// ======================================================
+// 13. Events, Notifications
+// ======================================================
+
+entity Event  {
+  eventType       String required maxlength(100)
+  eventKey        UUID required
+  description     String
+  eventDate       Instant required
+}
+
+entity EventTaskAssignment  {}
+
+entity Notification  {
+  title           String required maxlength(255)
+  message         String
+  notificationType String  maxlength(50)
+  isRead          Boolean
+}
+
+entity EventNotification  {
+  notificationType String required maxlength(50)
+  message         String required
+}
+
+
+// ======================================================
+// 14. Reporting & Audit
+// ======================================================
+
+entity ReportTemplate  {
+  code            String  maxlength(100)
+  name            String  maxlength(255)
+  description     String
+  configJson      String
+  isActive        Boolean
+}
+
+entity ReportRun  {
+  name            String required maxlength(255)
+  filterJson      String
+  format          String  maxlength(10)
+  filePath        String
+}
+
+entity AuditLog  {
+  actionType      String required maxlength(100)
+  entityType      String required maxlength(100)
+  entityId        UUID required
+  oldValue        String
+  newValue        String
+}
+
+
+// ======================================================
+// 15. RELATIONSHIPS
+// ======================================================
+
+// Tenant & Plan
+relationship ManyToOne {
+  TenantSubscription{tenant required} to Tenant
+  TenantSubscription{plan required} to Plan
+  TenantEncryptionKey{tenant required} to Tenant
+}
+
+// Geo
+relationship ManyToOne {
+  State{country required} to Country
+  City{state required} to State
+}
+
+// Tenant profile & branding
+relationship OneToOne {
+  TenantProfile{tenant required} to Tenant
+  TenantBranding{tenant required} to Tenant
+  TenantProfile{address} to Address
+}
+
+// Tenant ↔ core entities
+relationship ManyToOne {
+  Address{tenant required} to Tenant
+  User{tenant required} to Tenant
+  Role{tenant required} to Tenant
+  UserRole{tenant required} to Tenant
+  UserHierarchy{tenant required} to Tenant
+  Department{tenant required} to Tenant
+  UserDepartment{tenant required} to Tenant
+  Customer{tenant required} to Tenant
+  Contact{tenant required} to Tenant
+  LeadSource{tenant required} to Tenant
+  Pipeline{tenant required} to Tenant
+  SubPipeline{tenant required} to Tenant
+  Product{tenant required} to Tenant
+  Lead{tenant required} to Tenant
+  Deal{tenant required} to Tenant
+  Quotation{tenant required} to Tenant
+  QuotationItem{tenant required} to Tenant
+  ComplaintCategory{tenant required} to Tenant
+  Complaint{tenant required} to Tenant
+  Ticket{tenant required} to Tenant
+  TaskType{tenant required} to Tenant
+  Task{tenant required} to Tenant
+  Event{tenant required} to Tenant
+  Notification{tenant required} to Tenant
+  ReportTemplate{tenant required} to Tenant
+  ReportRun{tenant required} to Tenant
+  AuditLog{tenant required} to Tenant
+}
+
+// Users & roles
+relationship ManyToOne {
+  UserRole{user required} to User
+  UserRole{role required} to Role
+  Department{headUser} to User
+  UserDepartment{user required} to User
+  UserDepartment{department required} to Department
+  UserHierarchy{parentUser required} to User
+  UserHierarchy{childUser required} to User
+}
+
+// Permissions
+relationship ManyToOne {
+  RolePermission{role required} to Role
+  RolePermission{module required} to PermissionModule
+}
+
+// Customers & contacts
+relationship ManyToOne {
+  Customer{department} to Department
+  Customer{billingAddress} to Address
+  Customer{shippingAddress} to Address
+  Contact{customer} to Customer
+  Contact{address} to Address
+  Contact{ownerUser required} to User
+  Customer{primaryContact} to Contact
+}
+
+// Pipelines, leads, deals
+relationship ManyToOne {
+  SubPipeline{pipeline required} to Pipeline
+  Lead{customer} to Customer
+  Lead{contact} to Contact
+  Lead{source} to LeadSource
+  Lead{pipeline} to Pipeline
+  Lead{stage} to SubPipeline
+  Lead{ownerUser required} to User
+  Deal{customer required} to Customer
+  Deal{contact} to Contact
+  Deal{lead} to Lead
+}
+
+// Products & quotations
+relationship ManyToOne {
+  Quotation{customer required} to Customer
+  Quotation{contact} to Contact
+  Quotation{lead} to Lead
+  Quotation{createdByUser} to User
+  QuotationItem{quotation required} to Quotation
+  QuotationItem{product} to Product
+}
+
+// Complaints & tickets
+relationship ManyToOne {
+  Complaint{customer required} to Customer
+  Complaint{contact} to Contact
+  Complaint{category} to ComplaintCategory
+  Complaint{pipeline} to Pipeline
+  Complaint{stage} to SubPipeline
+  Complaint{assignedDepartment} to Department
+  Complaint{assignedUser} to User
+  Ticket{customer required} to Customer
+  Ticket{contact} to Contact
+  Ticket{assignedTo} to User
+}
+
+// Tasks & comments
+relationship ManyToOne {
+  Task{taskType} to TaskType
+  Task{assignedUser required} to User
+  Task{createdByUser required} to User
+  TaskComment{task required} to Task
+  TaskComment{createdByUser required} to User
+}
+
+// Events & notifications
+relationship ManyToOne {
+  Event{customer} to Customer
+  Event{contact} to Contact
+  EventTaskAssignment{event required} to Event
+  EventTaskAssignment{task required} to Task
+  EventTaskAssignment{assignedTo required} to User
+  Notification{recipient required} to User
+  EventNotification{event required} to Event
+  EventNotification{user required} to User
+}
+
+// Reports & audit
+relationship ManyToOne {
+  ReportRun{template} to ReportTemplate
+  ReportRun{generatedByUser required} to User
+  AuditLog{performedBy required} to User
+}
+
+
+// ======================================================
+// 16. DTO / service / pagination / filter
+// ======================================================
+
+dto * with mapstruct
+service * with serviceClass
+paginate * with pagination
+filter *

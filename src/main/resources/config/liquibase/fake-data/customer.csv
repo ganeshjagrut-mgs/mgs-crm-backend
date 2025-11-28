@@ -1,0 +1,11 @@
+id;name;customer_type;status;segment;industry;tenant_id
+1;../fake-data/blob/hipster.txt;ORGANIZATION;INACTIVE;finer hmph;hydrolyse;1
+2;../fake-data/blob/hipster.txt;INDIVIDUAL;PROSPECT;hopeful potentially until;lovingly;2
+3;../fake-data/blob/hipster.txt;ORGANIZATION;INACTIVE;till striking;hmph anguished subtle;3
+4;../fake-data/blob/hipster.txt;ORGANIZATION;ACTIVE;independence notarize quarrelsomely;inasmuch;4
+5;../fake-data/blob/hipster.txt;INDIVIDUAL;CHURNED;experience opposite loyally;mobilise;5
+6;../fake-data/blob/hipster.txt;INDIVIDUAL;INACTIVE;gladly;preheat bludgeon while;6
+7;../fake-data/blob/hipster.txt;INDIVIDUAL;INACTIVE;deserted;kaleidoscopic pace pharmacopoeia;7
+8;../fake-data/blob/hipster.txt;INDIVIDUAL;PROSPECT;whose;phooey;8
+9;../fake-data/blob/hipster.txt;INDIVIDUAL;INACTIVE;queasily;cross juicy;9
+10;../fake-data/blob/hipster.txt;ORGANIZATION;CHURNED;before;fooey pfft;10
