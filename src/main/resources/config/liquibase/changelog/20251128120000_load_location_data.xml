@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Load master data for Country, State, and City tables
+        This includes India with Maharashtra state and Pune city along with other locations
+    -->
+    <changeSet id="20251128120000-1" author="satish">
+        <comment>Load country master data</comment>
+        <loadData
+                  file="config/liquibase/data/country.csv"
+                  separator=";"
+                  tableName="country"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="iso_code_2" type="string"/>
+            <column name="iso_code_3" type="string"/>
+            <column name="name" type="string"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="20251128120000-2" author="satish">
+        <comment>Load state master data</comment>
+        <loadData
+                  file="config/liquibase/data/state.csv"
+                  separator=";"
+                  tableName="state"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="code" type="string"/>
+            <column name="country_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="20251128120000-3" author="satish">
+        <comment>Load city master data</comment>
+        <loadData
+                  file="config/liquibase/data/city.csv"
+                  separator=";"
+                  tableName="city"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="code" type="string"/>
+            <column name="state_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

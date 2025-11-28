@@ -95,5 +95,6 @@
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <include file="config/liquibase/changelog/20251127160000_add_audit_columns.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20251128000000_rename_mt_user_to_user.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251128120000_load_location_data.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>
