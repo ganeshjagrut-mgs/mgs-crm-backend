@@ -10,7 +10,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * Tenant-scoped Application User
  */
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class User extends AbstractAuditingEntity<Long> {

@@ -10,7 +10,7 @@
         Rename table mt_user to user
     -->
     <changeSet id="20251128000000-1" author="satish">
-        <renameTable oldTableName="mt_user" newTableName="user"/>
+        <renameTable oldTableName="mt_user" newTableName="users"/>
     </changeSet>
 
 </databaseChangeLog>
