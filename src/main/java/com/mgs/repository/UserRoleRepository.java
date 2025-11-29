@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRoleRepository extends JpaRepository<UserRole, Long>, JpaSpecificationExecutor<UserRole> {
     @Query("select userRole from UserRole userRole where userRole.user.email = ?#{authentication.name}")
     List<UserRole> findByUserIsCurrentUser();
+
+    List<UserRole> findByUserId(Long userId);
 }

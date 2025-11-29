@@ -7,10 +7,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * Tenant-scoped Application User (table name: user)
+ * Tenant-scoped Application User
  */
 @Entity
-@Table(name = "mt_user")
+@Table(name = "users")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class User extends AbstractAuditingEntity<Long> {
@@ -24,15 +24,13 @@ public class User extends AbstractAuditingEntity<Long> {
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, columnDefinition = "TEXT")
     private String email;
 
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "phone")
+    @Column(name = "phone", columnDefinition = "TEXT")
     private String phone;
 
     @NotNull
@@ -43,15 +41,13 @@ public class User extends AbstractAuditingEntity<Long> {
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
     private String firstName;
 
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name", nullable = false, columnDefinition = "TEXT")
     private String lastName;
 
     @NotNull

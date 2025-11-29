@@ -1,7 +1,6 @@
 package com.mgs.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Lob;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -16,11 +15,9 @@ public class UserDTO implements Serializable {
     private Long id;
 
     @Schema(description = "PII – encrypted long string", requiredMode = Schema.RequiredMode.REQUIRED)
-    @Lob
     private String email;
 
     @Schema(description = "PII – encrypted long string")
-    @Lob
     private String phone;
 
     @NotNull
@@ -28,11 +25,9 @@ public class UserDTO implements Serializable {
     private String passwordHash;
 
     @Schema(description = "PII – encrypted long string", requiredMode = Schema.RequiredMode.REQUIRED)
-    @Lob
     private String firstName;
 
     @Schema(description = "PII – encrypted long string", requiredMode = Schema.RequiredMode.REQUIRED)
-    @Lob
     private String lastName;
 
     private Boolean isActive;

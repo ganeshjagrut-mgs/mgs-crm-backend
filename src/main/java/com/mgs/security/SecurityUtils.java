@@ -62,6 +62,21 @@ public final class SecurityUtils {
     }
 
     /**
+     * Get the tenant ID of the current user from JWT.
+     *
+     * @return the tenant ID of the current user.
+     */
+    public static Optional<Long> getCurrentUserTenantId() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return Optional.ofNullable(securityContext.getAuthentication())
+            .filter(authentication -> authentication.getPrincipal() instanceof Jwt)
+            .map(authentication -> (Jwt) authentication.getPrincipal())
+            .map(jwt -> jwt.getClaim("tenant_id"))
+            .filter(tenantId -> tenantId instanceof Number)
+            .map(tenantId -> ((Number) tenantId).longValue());
+    }
+
+    /**
      * Check if a user is authenticated.
      *
      * @return true if the user is authenticated, false otherwise.

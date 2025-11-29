@@ -1,0 +1,19 @@
+id;name;code;state_id
+1;Pune;PUN;1
+2;Mumbai;MUM;1
+3;Nagpur;NAG;1
+4;Nashik;NAS;1
+5;Aurangabad;AUR;1
+6;Bangalore;BLR;2
+7;Mysore;MYS;2
+8;Ahmedabad;AMD;3
+9;Surat;SRT;3
+10;Chennai;CHE;4
+11;Coimbatore;COI;4
+12;New Delhi;DEL;5
+13;Lucknow;LKO;6
+14;Kanpur;KAN;6
+15;Jaipur;JAI;7
+16;Jodhpur;JDH;7
+17;Kolkata;KOL;8
+18;Howrah;HOW;8
