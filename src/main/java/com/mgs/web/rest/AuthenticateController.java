@@ -6,17 +6,15 @@ import static com.mgs.security.SecurityUtils.JWT_ALGORITHM;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mgs.domain.Tenant;
 import com.mgs.domain.User;
-import com.mgs.repository.UserRepository;
+import com.mgs.security.DomainUserDetailsService;
 import com.mgs.web.rest.vm.LoginVM;
 import jakarta.validation.Valid;
 import java.security.Principal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -51,16 +49,16 @@ public class AuthenticateController {
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    private final UserRepository userRepository;
+    private final DomainUserDetailsService userDetailsService;
 
     public AuthenticateController(
         JwtEncoder jwtEncoder,
         AuthenticationManagerBuilder authenticationManagerBuilder,
-        UserRepository userRepository
+        DomainUserDetailsService userDetailsService
     ) {
         this.jwtEncoder = jwtEncoder;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
-        this.userRepository = userRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     @PostMapping("/authenticate")
@@ -101,24 +99,26 @@ public class AuthenticateController {
             validity = now.plus(this.tokenValidityInSeconds, ChronoUnit.SECONDS);
         }
 
-        String username = authentication.getName();
+        String login = authentication.getName();
 
-        // Load user from database and get tenant ID
-        Long tenantId = userRepository
-            .findByEmail(username)
-            .map(User::getTenant)
-            .map(Tenant::getId)
-            .orElse(null);
-        // @formatter:off
-        JwtClaimsSet.Builder builder = JwtClaimsSet.builder()
+        // Load user and get tenant ID using UserDetailsService
+        User user = userDetailsService.getUserWithTenant(login);
+        Long tenantId = null;
+        Tenant tenant = user.getTenant();
+        if (tenant != null) {
+            tenantId = tenant.getId();
+        }
+
+        JwtClaimsSet claims = JwtClaimsSet.builder()
             .issuedAt(now)
             .expiresAt(validity)
             .subject(authentication.getName())
             .claim(AUTHORITIES_CLAIM, authorities)
-            .claim("tenant_id", tenantId);
+            .claim("tenant_id", tenantId)
+            .build();
 
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();
-        return this.jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, builder.build())).getTokenValue();
+        return this.jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).getTokenValue();
     }
 
     /**
