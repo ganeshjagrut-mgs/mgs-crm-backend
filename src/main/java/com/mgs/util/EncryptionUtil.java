@@ -42,6 +42,37 @@ public class EncryptionUtil {
     }
 
     /**
+     * Generate SHA-256 hash of email for efficient lookup.
+     * This hash is not encrypted - it's used for database queries.
+     *
+     * @param email the email to hash
+     * @return SHA-256 hash of the email in hexadecimal format
+     */
+    public static String hashEmail(String email) {
+        try {
+            if (email == null || email.isEmpty()) {
+                throw new IllegalArgumentException("Email cannot be null or empty");
+            }
+            // Normalize email: lowercase and trim
+            String normalizedEmail = email.toLowerCase().trim();
+
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(normalizedEmail.getBytes(StandardCharsets.UTF_8));
+
+            // Convert to hexadecimal string
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (Exception e) {
+            throw new RuntimeException("Error hashing email", e);
+        }
+    }
+
+    /**
      * Get the encryption key for a tenant.
      *
      * @param tenantId the id of the tenant.

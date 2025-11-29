@@ -14,7 +14,7 @@ public class EncryptionKeyNotFoundException extends ErrorResponseException {
     private final Long tenantId;
 
     public EncryptionKeyNotFoundException(Long tenantId) {
-        this(ErrorConstants.DEFAULT_TYPE, "User could not be saved. Please contact administrator.", tenantId);
+        this(ErrorConstants.DEFAULT_TYPE, "Unable to process request. Please contact administrator.", tenantId);
     }
 
     public EncryptionKeyNotFoundException(String defaultMessage, Long tenantId) {

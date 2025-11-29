@@ -17,6 +17,9 @@ public class UserDTO implements Serializable {
     @Schema(description = "PII – encrypted long string", requiredMode = Schema.RequiredMode.REQUIRED)
     private String email;
 
+    @Schema(description = "SHA-256 hash of email for lookup (internal use)", hidden = true)
+    private String emailHash;
+
     @Schema(description = "PII – encrypted long string")
     private String phone;
 
@@ -35,6 +38,9 @@ public class UserDTO implements Serializable {
     @NotNull
     private TenantDTO tenant;
 
+    @NotNull
+    private String pin;
+
     public Long getId() {
         return id;
     }
@@ -49,6 +55,14 @@ public class UserDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEmailHash() {
+        return emailHash;
+    }
+
+    public void setEmailHash(String emailHash) {
+        this.emailHash = emailHash;
     }
 
     public String getPhone() {
@@ -97,6 +111,14 @@ public class UserDTO implements Serializable {
 
     public void setTenant(TenantDTO tenant) {
         this.tenant = tenant;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
     }
 
     @Override
