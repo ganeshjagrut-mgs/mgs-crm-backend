@@ -11,8 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class JwtUtil {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-
     private JwtUtil() {}
 
     /**
