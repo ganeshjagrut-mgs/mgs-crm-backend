@@ -23,8 +23,7 @@ public class Customer extends AbstractAuditingEntity<Long> {
     @Column(name = "id")
     private Long id;
 
-    @Lob
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, columnDefinition = "TEXT")
     private String name;
 
     @Enumerated(EnumType.STRING)

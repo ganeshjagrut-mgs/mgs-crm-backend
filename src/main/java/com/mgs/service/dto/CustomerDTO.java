@@ -2,7 +2,6 @@ package com.mgs.service.dto;
 
 import com.mgs.domain.enumeration.CustomerStatus;
 import com.mgs.domain.enumeration.CustomerType;
-import jakarta.persistence.Lob;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,7 +14,6 @@ public class CustomerDTO implements Serializable {
 
     private Long id;
 
-    @Lob
     private String name;
 
     private CustomerType customerType;

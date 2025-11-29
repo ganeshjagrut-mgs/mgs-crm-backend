@@ -36,48 +36,40 @@ public class TenantProfile extends AbstractAuditingEntity<Long> {
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "legal_name", nullable = false)
+    @Column(name = "legal_name", nullable = false, columnDefinition = "TEXT")
     private String legalName;
 
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "short_name")
+    @Column(name = "short_name", columnDefinition = "TEXT")
     private String shortName;
 
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "registration_number")
+    @Column(name = "registration_number", columnDefinition = "TEXT")
     private String registrationNumber;
 
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "tax_id")
+    @Column(name = "tax_id", columnDefinition = "TEXT")
     private String taxId;
 
     /**
      * Contact PII – encrypted long string
      */
-    @Lob
-    @Column(name = "contact_person")
+    @Column(name = "contact_person", columnDefinition = "TEXT")
     private String contactPerson;
 
-    @Lob
-    @Column(name = "contact_email")
+    @Column(name = "contact_email", columnDefinition = "TEXT")
     private String contactEmail;
 
-    @Lob
-    @Column(name = "contact_phone")
+    @Column(name = "contact_phone", columnDefinition = "TEXT")
     private String contactPhone;
 
-    @Lob
-    @Column(name = "website_url")
+    @Column(name = "website_url", columnDefinition = "TEXT")
     private String websiteUrl;
 
     @Size(max = 10)

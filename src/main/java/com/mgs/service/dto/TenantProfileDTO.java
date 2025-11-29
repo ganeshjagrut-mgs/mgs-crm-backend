@@ -1,7 +1,6 @@
 package com.mgs.service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Lob;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,32 +23,24 @@ public class TenantProfileDTO implements Serializable {
     private Boolean domainVerified;
 
     @Schema(description = "PII – encrypted long string", requiredMode = Schema.RequiredMode.REQUIRED)
-    @Lob
     private String legalName;
 
     @Schema(description = "PII – encrypted long string")
-    @Lob
     private String shortName;
 
     @Schema(description = "PII – encrypted long string")
-    @Lob
     private String registrationNumber;
 
     @Schema(description = "PII – encrypted long string")
-    @Lob
     private String taxId;
 
     @Schema(description = "Contact PII – encrypted long string")
-    @Lob
     private String contactPerson;
 
-    @Lob
     private String contactEmail;
 
-    @Lob
     private String contactPhone;
 
-    @Lob
     private String websiteUrl;
 
     @Size(max = 10)

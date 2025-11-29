@@ -30,22 +30,19 @@ public class Address extends AbstractAuditingEntity<Long> {
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "line_1", nullable = false)
+    @Column(name = "line_1", nullable = false, columnDefinition = "TEXT")
     private String line1;
 
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "line_2")
+    @Column(name = "line_2", columnDefinition = "TEXT")
     private String line2;
 
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "postal_code")
+    @Column(name = "postal_code", columnDefinition = "TEXT")
     private String postalCode;
 
     @ManyToOne(optional = false)
