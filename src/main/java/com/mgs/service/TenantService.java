@@ -1,6 +1,7 @@
 package com.mgs.service;
 
 import com.mgs.domain.Tenant;
+import com.mgs.domain.enumeration.TenantStatus;
 import com.mgs.repository.TenantRepository;
 import com.mgs.service.dto.TenantDTO;
 import com.mgs.service.mapper.TenantMapper;
@@ -41,6 +42,7 @@ public class TenantService {
     public TenantDTO save(TenantDTO tenantDTO) {
         LOG.debug("Request to save Tenant : {}", tenantDTO);
         Tenant tenant = tenantMapper.toEntity(tenantDTO);
+        tenant.setStatus(TenantStatus.ACTIVE);
         tenant = tenantRepository.save(tenant);
         return tenantMapper.toDto(tenant);
     }

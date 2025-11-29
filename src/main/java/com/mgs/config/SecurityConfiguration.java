@@ -32,13 +32,26 @@ public class SecurityConfiguration {
             .cors(withDefaults())
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz ->
-                // prettier-ignore
                 authz
+                    // 🔓 PUBLIC ENDPOINTS
+                    .requestMatchers(mvc.pattern(HttpMethod.POST, "/api/users/signup")).permitAll()
                     .requestMatchers(mvc.pattern(HttpMethod.POST, "/api/authenticate")).permitAll()
                     .requestMatchers(mvc.pattern(HttpMethod.GET, "/api/authenticate")).permitAll()
+
+                    // 🔓 SWAGGER / OPENAPI - allow without auth
+                    .requestMatchers(mvc.pattern("/api/swagger-ui.html")).permitAll()
+                    .requestMatchers(mvc.pattern("/swagger-ui/**")).permitAll()
+                    .requestMatchers(mvc.pattern("/v3/api-docs/**")).permitAll()
+                    // (optionally also this form, depending on your version)
+                    // .requestMatchers(mvc.pattern("/api-docs/**")).permitAll()
+
+                    // 🔐 ADMIN APIs
                     .requestMatchers(mvc.pattern("/api/admin/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+
+                    // 🔐 ALL OTHER API ENDPOINTS REQUIRE AUTH
                     .requestMatchers(mvc.pattern("/api/**")).authenticated()
-                    .requestMatchers(mvc.pattern("/v3/api-docs/**")).hasAuthority(AuthoritiesConstants.ADMIN)
+
+                    // MANAGEMENT
                     .requestMatchers(mvc.pattern("/management/health")).permitAll()
                     .requestMatchers(mvc.pattern("/management/health/**")).permitAll()
                     .requestMatchers(mvc.pattern("/management/info")).permitAll()
@@ -52,6 +65,7 @@ public class SecurityConfiguration {
                     .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
             )
             .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()));
+
         return http.build();
     }
 

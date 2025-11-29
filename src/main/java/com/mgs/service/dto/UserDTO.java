@@ -35,7 +35,6 @@ public class UserDTO implements Serializable {
     @Lob
     private String lastName;
 
-    @NotNull
     private Boolean isActive;
 
     @NotNull
