@@ -23,6 +23,7 @@ public class RoleDTO implements Serializable {
 
     private Integer roleLevel;
 
+    private RoleDTO parentRole;
 
     private TenantDTO tenant;
 
@@ -66,6 +67,14 @@ public class RoleDTO implements Serializable {
         this.roleLevel = roleLevel;
     }
 
+    public RoleDTO getParentRole() {
+        return parentRole;
+    }
+
+    public void setParentRole(RoleDTO parentRole) {
+        this.parentRole = parentRole;
+    }
+
     public TenantDTO getTenant() {
         return tenant;
     }
@@ -104,6 +113,7 @@ public class RoleDTO implements Serializable {
             ", code='" + getCode() + "'" +
             ", isSystem='" + getIsSystem() + "'" +
             ", roleLevel=" + getRoleLevel() +
+            ", parentRole=" + getParentRole() +
             ", tenant=" + getTenant() +
             "}";
     }
