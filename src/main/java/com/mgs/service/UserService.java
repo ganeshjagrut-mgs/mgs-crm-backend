@@ -1,6 +1,7 @@
 package com.mgs.service;
 
 import com.mgs.domain.User;
+import com.mgs.domain.enumeration.Role;
 import com.mgs.domain.enumeration.TenantStatus;
 import com.mgs.repository.UserRepository;
 import com.mgs.service.dto.*;
@@ -29,11 +30,17 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper, TenantService tenantService, PasswordEncoder passwordEncoder) {
+    private final RoleService roleService;
+
+    private final UserRoleService userRoleService;
+
+    public UserService(UserRepository userRepository, UserMapper userMapper, TenantService tenantService, PasswordEncoder passwordEncoder, RoleService roleService, UserRoleService userRoleService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.tenantService = tenantService;
         this.passwordEncoder = passwordEncoder;
+        this.roleService = roleService;
+        this.userRoleService = userRoleService;
     }
 
     /**
@@ -114,6 +121,18 @@ public class UserService {
         userDTO.setTenant(tenant);
         userDTO.setIsActive(false);
         UserDTO savedUser = save(userDTO);
+
+        RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setName(Role.COMPANY_OWNER.toString());
+        roleDTO.setTenant(tenant);
+        roleDTO = roleService.save(roleDTO);
+
+        UserRoleDTO userRoleDTO = new UserRoleDTO();
+        userRoleDTO.setRole(roleDTO);
+        userRoleDTO.setUser(savedUser);
+        userRoleDTO.setTenant(tenant);
+
+        userRoleService.save(userRoleDTO);
 
         LOG.debug("Signup completed successfully for user: {}", savedUser.getId());
         return savedUser;

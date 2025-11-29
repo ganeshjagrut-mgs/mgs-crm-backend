@@ -211,7 +211,7 @@ public class UserResource {
 
     @PostMapping("/signup")
     public ResponseEntity<UserDTO> signup(@RequestBody UserDTO userDTO) {
-        UserDTO response = userService.signup(userDTO);
+         UserDTO response = userService.signup(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
