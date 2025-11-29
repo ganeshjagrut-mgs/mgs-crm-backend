@@ -43,6 +43,15 @@ public class DomainUserDetailsService implements UserDetailsService {
             .orElseThrow(() -> new UsernameNotFoundException("User with email " + email + " was not found in the database"));
     }
 
+    @Transactional(readOnly = true)
+    public User getUserWithTenant(final String email) {
+        LOG.debug("Loading user with tenant information for '{}'", email);
+
+        return userRepository
+            .findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User with email " + email + " was not found in the database"));
+    }
+
     private org.springframework.security.core.userdetails.User createSpringSecurityUser(String lowercaseLogin, User user) {
         if (!user.getIsActive()) {
             throw new UserNotActivatedException("User " + lowercaseLogin + " is not activated");

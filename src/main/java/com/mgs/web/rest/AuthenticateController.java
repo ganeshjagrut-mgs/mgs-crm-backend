@@ -6,13 +6,12 @@ import static com.mgs.security.SecurityUtils.JWT_ALGORITHM;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mgs.domain.Tenant;
 import com.mgs.domain.User;
-import com.mgs.repository.UserRepository;
+import com.mgs.security.DomainUserDetailsService;
 import com.mgs.web.rest.vm.LoginVM;
 import jakarta.validation.Valid;
 import java.security.Principal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,16 +49,16 @@ public class AuthenticateController {
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    private final UserRepository userRepository;
+    private final DomainUserDetailsService userDetailsService;
 
     public AuthenticateController(
         JwtEncoder jwtEncoder,
         AuthenticationManagerBuilder authenticationManagerBuilder,
-        UserRepository userRepository
+        DomainUserDetailsService userDetailsService
     ) {
         this.jwtEncoder = jwtEncoder;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
-        this.userRepository = userRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     @PostMapping("/authenticate")
@@ -102,16 +101,12 @@ public class AuthenticateController {
 
         String login = authentication.getName();
 
-        // Load user and get tenant ID
+        // Load user and get tenant ID using UserDetailsService
+        User user = userDetailsService.getUserWithTenant(login);
         Long tenantId = null;
-        Optional<User> userOpt = userRepository.findByEmail(login);
-
-        if (userOpt.isPresent()) {
-            User user = userOpt.get();
-            Tenant tenant = user.getTenant();
-            if (tenant != null) {
-                tenantId = tenant.getId();
-            }
+        Tenant tenant = user.getTenant();
+        if (tenant != null) {
+            tenantId = tenant.getId();
         }
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
