@@ -17,11 +17,9 @@ public class TenantDTO implements Serializable {
     @Size(max = 255)
     private String name;
 
-    @NotNull
     @Size(max = 50)
     private String code;
 
-    @NotNull
     private TenantStatus status;
 
     public Long getId() {

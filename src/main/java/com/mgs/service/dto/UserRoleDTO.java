@@ -12,13 +12,13 @@ public class UserRoleDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
+
     private TenantDTO tenant;
 
-    @NotNull
+
     private UserDTO user;
 
-    @NotNull
+
     private RoleDTO role;
 
     public Long getId() {

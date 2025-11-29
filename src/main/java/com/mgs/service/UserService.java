@@ -1,16 +1,21 @@
 package com.mgs.service;
 
 import com.mgs.domain.User;
+import com.mgs.domain.enumeration.Role;
+import com.mgs.domain.enumeration.TenantStatus;
 import com.mgs.repository.UserRepository;
-import com.mgs.service.dto.UserDTO;
+import com.mgs.service.dto.*;
 import com.mgs.service.mapper.UserMapper;
 import java.util.Optional;
 
 import com.mgs.util.EncryptionUtil;
 import com.mgs.util.JwtUtil;
 import com.mgs.web.rest.errors.EncryptionKeyNotFoundException;
+
+import com.mgs.util.EncryptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,11 +32,23 @@ public class UserService {
 
     private final UserMapper userMapper;
 
+    private final TenantService tenantService;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final RoleService roleService;
+
+    private final UserRoleService userRoleService;
+
     private final EncryptionUtil encryptionUtil;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper, EncryptionUtil encryptionUtil) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, TenantService tenantService, PasswordEncoder passwordEncoder, RoleService roleService, UserRoleService userRoleService) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.tenantService = tenantService;
+        this.passwordEncoder = passwordEncoder;
+        this.roleService = roleService;
+        this.userRoleService = userRoleService;
         this.encryptionUtil = encryptionUtil;
     }
 
@@ -43,6 +60,7 @@ public class UserService {
      */
     public UserDTO save(UserDTO userDTO) {
         LOG.debug("Request to save User : {}", userDTO);
+        userDTO.setIsActive(true);
         User user = userMapper.toEntity(userDTO);
 
         Long tenantId = JwtUtil.getTenantIdFromToken();
@@ -134,5 +152,42 @@ public class UserService {
     public void delete(Long id) {
         LOG.debug("Request to delete User : {}", id);
         userRepository.deleteById(id);
+    }
+
+    public UserDTO signup(UserDTO userDTO) {
+        LOG.debug("Request to signup: {}", userDTO);
+
+        TenantDTO tenant = createTenant(userDTO.getTenant());
+
+        userDTO.setPasswordHash(passwordEncoder.encode(userDTO.getPasswordHash()));
+        userDTO.setTenant(tenant);
+        userDTO.setIsActive(false);
+        UserDTO savedUser = save(userDTO);
+
+        RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setName(Role.COMPANY_OWNER.toString());
+        roleDTO.setTenant(tenant);
+        roleDTO = roleService.save(roleDTO);
+
+        UserRoleDTO userRoleDTO = new UserRoleDTO();
+        userRoleDTO.setRole(roleDTO);
+        userRoleDTO.setUser(savedUser);
+        userRoleDTO.setTenant(tenant);
+
+        userRoleService.save(userRoleDTO);
+
+        LOG.debug("Signup completed successfully for user: {}", savedUser.getId());
+        return savedUser;
+    }
+
+    private TenantDTO createTenant(TenantDTO tenantDTO) {
+        LOG.debug("Creating new tenant: {}", tenantDTO.getCode());
+        String code = "TEN" + System.currentTimeMillis();
+        System.out.println("code: " + code);
+        tenantDTO.setStatus(TenantStatus.ACTIVE);
+        tenantDTO.setCode(code);
+
+        TenantDTO savedTenant = tenantService.save(tenantDTO);
+        return savedTenant;
     }
 }
