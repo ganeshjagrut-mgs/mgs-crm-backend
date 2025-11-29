@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        Add parent_role_id column to role table for hierarchical role structure
+    -->
+    <changeSet id="20251129000001-1" author="claude">
+        <addColumn tableName="role">
+            <column name="parent_role_id" type="bigint" remarks="Parent role for hierarchical role structure">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!--
+        Add foreign key constraint for parent_role_id
+    -->
+    <changeSet id="20251129000001-2" author="claude">
+        <addForeignKeyConstraint baseTableName="role"
+                                 baseColumnNames="parent_role_id"
+                                 constraintName="fk_role_parent_role_id"
+                                 referencedTableName="role"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <!--
+        Add index on parent_role_id for better query performance
+    -->
+    <changeSet id="20251129000001-3" author="claude">
+        <createIndex indexName="idx_role_parent_role_id" tableName="role">
+            <column name="parent_role_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

@@ -36,6 +36,10 @@ public class Role extends AbstractAuditingEntity<Long> {
     @Column(name = "role_level")
     private Integer roleLevel;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "parentRole", "tenant" }, allowSetters = true)
+    private Role parentRole;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties(value = { "tenantProfile", "tenantBranding" }, allowSetters = true)
@@ -106,6 +110,19 @@ public class Role extends AbstractAuditingEntity<Long> {
 
     public void setRoleLevel(Integer roleLevel) {
         this.roleLevel = roleLevel;
+    }
+
+    public Role getParentRole() {
+        return this.parentRole;
+    }
+
+    public Role parentRole(Role parentRole) {
+        this.setParentRole(parentRole);
+        return this;
+    }
+
+    public void setParentRole(Role parentRole) {
+        this.parentRole = parentRole;
     }
 
     public Tenant getTenant() {
