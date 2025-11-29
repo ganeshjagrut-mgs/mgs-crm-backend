@@ -14,7 +14,7 @@ public class EncryptionKeyNotFoundException extends ErrorResponseException {
     private final Long tenantId;
 
     public EncryptionKeyNotFoundException(Long tenantId) {
-        this(ErrorConstants.DEFAULT_TYPE, "Encryption key not found for tenant", tenantId);
+        this(ErrorConstants.DEFAULT_TYPE, "User could not be saved. Please contact administrator.", tenantId);
     }
 
     public EncryptionKeyNotFoundException(String defaultMessage, Long tenantId) {
@@ -23,10 +23,10 @@ public class EncryptionKeyNotFoundException extends ErrorResponseException {
 
     public EncryptionKeyNotFoundException(URI type, String defaultMessage, Long tenantId) {
         super(
-            HttpStatus.INTERNAL_SERVER_ERROR,
+            HttpStatus.BAD_REQUEST,
             ProblemDetailWithCauseBuilder
                 .instance()
-                .withStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .withStatus(HttpStatus.BAD_REQUEST.value())
                 .withType(type)
                 .withTitle(defaultMessage)
                 .withProperty("message", ErrorConstants.ERR_ENCRYPTION_KEY_NOT_FOUND)
