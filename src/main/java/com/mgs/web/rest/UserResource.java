@@ -1,10 +1,9 @@
 package com.mgs.web.rest;
 
 import com.mgs.repository.UserRepository;
-import com.mgs.service.UserQueryService;
-import com.mgs.service.UserService;
+import com.mgs.service.*;
 import com.mgs.service.criteria.UserCriteria;
-import com.mgs.service.dto.UserDTO;
+import com.mgs.service.dto.*;
 import com.mgs.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -19,7 +18,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -46,10 +47,19 @@ public class UserResource {
 
     private final UserQueryService userQueryService;
 
-    public UserResource(UserService userService, UserRepository userRepository, UserQueryService userQueryService) {
+    private final TenantService tenantService;
+    private final TenantProfileService tenantProfileService;
+    private final PasswordEncoder passwordEncoder;
+    private final AddressService addressService;
+
+    public UserResource(UserService userService, UserRepository userRepository, UserQueryService userQueryService, TenantService tenantService, TenantProfileService tenantProfileService, PasswordEncoder passwordEncoder, AddressService addressService) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.userQueryService = userQueryService;
+        this.tenantService = tenantService;
+        this.tenantProfileService = tenantProfileService;
+        this.passwordEncoder = passwordEncoder;
+        this.addressService = addressService;
     }
 
     /**
@@ -197,5 +207,11 @@ public class UserResource {
         return ResponseEntity.noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<UserDTO> signup(@RequestBody UserDTO userDTO) {
+         UserDTO response = userService.signup(userDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

@@ -12,7 +12,7 @@ public class RoleDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
+
     @Size(max = 100)
     private String name;
 
@@ -23,7 +23,7 @@ public class RoleDTO implements Serializable {
 
     private Integer roleLevel;
 
-    @NotNull
+
     private TenantDTO tenant;
 
     public Long getId() {

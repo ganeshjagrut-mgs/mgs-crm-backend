@@ -30,7 +30,6 @@ public class UserDTO implements Serializable {
     @Schema(description = "PII – encrypted long string", requiredMode = Schema.RequiredMode.REQUIRED)
     private String lastName;
 
-    @NotNull
     private Boolean isActive;
 
     @NotNull
