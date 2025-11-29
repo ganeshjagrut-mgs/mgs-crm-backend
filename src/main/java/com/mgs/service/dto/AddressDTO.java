@@ -1,6 +1,7 @@
 package com.mgs.service.dto;
 
 import com.mgs.domain.enumeration.AddressType;
+import com.mgs.util.EncryptedField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -18,12 +19,15 @@ public class AddressDTO implements Serializable {
     private AddressType addressType;
 
     @Schema(description = "PII – encrypted long string", requiredMode = Schema.RequiredMode.REQUIRED)
+    @EncryptedField
     private String line1;
 
     @Schema(description = "PII – encrypted long string")
+    @EncryptedField
     private String line2;
 
     @Schema(description = "PII – encrypted long string")
+    @EncryptedField
     private String postalCode;
 
     @NotNull

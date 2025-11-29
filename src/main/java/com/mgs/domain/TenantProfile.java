@@ -1,6 +1,7 @@
 package com.mgs.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mgs.util.EncryptedField;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -37,36 +38,43 @@ public class TenantProfile extends AbstractAuditingEntity<Long> {
      * PII – encrypted long string
      */
     @Column(name = "legal_name", nullable = false, columnDefinition = "TEXT")
+    @EncryptedField
     private String legalName;
 
     /**
      * PII – encrypted long string
      */
     @Column(name = "short_name", columnDefinition = "TEXT")
+    @EncryptedField
     private String shortName;
 
     /**
      * PII – encrypted long string
      */
     @Column(name = "registration_number", columnDefinition = "TEXT")
+    @EncryptedField
     private String registrationNumber;
 
     /**
      * PII – encrypted long string
      */
     @Column(name = "tax_id", columnDefinition = "TEXT")
+    @EncryptedField
     private String taxId;
 
     /**
      * Contact PII – encrypted long string
      */
     @Column(name = "contact_person", columnDefinition = "TEXT")
+    @EncryptedField
     private String contactPerson;
 
     @Column(name = "contact_email", columnDefinition = "TEXT")
+    @EncryptedField
     private String contactEmail;
 
     @Column(name = "contact_phone", columnDefinition = "TEXT")
+    @EncryptedField
     private String contactPhone;
 
     @Column(name = "website_url", columnDefinition = "TEXT")

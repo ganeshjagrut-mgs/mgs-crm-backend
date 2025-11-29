@@ -2,6 +2,7 @@ package com.mgs.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mgs.domain.enumeration.AddressType;
+import com.mgs.util.EncryptedField;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -31,18 +32,21 @@ public class Address extends AbstractAuditingEntity<Long> {
      * PII – encrypted long string
      */
     @Column(name = "line_1", nullable = false, columnDefinition = "TEXT")
+    @EncryptedField
     private String line1;
 
     /**
      * PII – encrypted long string
      */
     @Column(name = "line_2", columnDefinition = "TEXT")
+    @EncryptedField
     private String line2;
 
     /**
      * PII – encrypted long string
      */
     @Column(name = "postal_code", columnDefinition = "TEXT")
+    @EncryptedField
     private String postalCode;
 
     @ManyToOne(optional = false)

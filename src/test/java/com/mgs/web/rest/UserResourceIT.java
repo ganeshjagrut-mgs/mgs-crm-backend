@@ -14,6 +14,7 @@ import com.mgs.domain.User;
 import com.mgs.repository.UserRepository;
 import com.mgs.service.dto.UserDTO;
 import com.mgs.service.mapper.UserMapper;
+import com.mgs.util.EncryptionUtil;
 import jakarta.persistence.EntityManager;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -87,6 +88,7 @@ class UserResourceIT {
     public static User createEntity(EntityManager em) {
         User user = new User()
             .email(DEFAULT_EMAIL)
+            .emailHash(EncryptionUtil.hashEmail(DEFAULT_EMAIL))
             .phone(DEFAULT_PHONE)
             .passwordHash(DEFAULT_PASSWORD_HASH)
             .firstName(DEFAULT_FIRST_NAME)
@@ -114,6 +116,7 @@ class UserResourceIT {
     public static User createUpdatedEntity(EntityManager em) {
         User updatedUser = new User()
             .email(UPDATED_EMAIL)
+            .emailHash(EncryptionUtil.hashEmail(UPDATED_EMAIL))
             .phone(UPDATED_PHONE)
             .passwordHash(UPDATED_PASSWORD_HASH)
             .firstName(UPDATED_FIRST_NAME)

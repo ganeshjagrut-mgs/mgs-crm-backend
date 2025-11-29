@@ -1,6 +1,7 @@
 package com.mgs.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mgs.util.EncryptedField;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -25,12 +26,20 @@ public class User extends AbstractAuditingEntity<Long> {
      * PII – encrypted long string
      */
     @Column(name = "email", nullable = false, columnDefinition = "TEXT")
+    @EncryptedField
     private String email;
+
+    /**
+     * SHA-256 hash of email for efficient lookup (not encrypted)
+     */
+    @Column(name = "email_hash", nullable = false, unique = true)
+    private String emailHash;
 
     /**
      * PII – encrypted long string
      */
     @Column(name = "phone", columnDefinition = "TEXT")
+    @EncryptedField
     private String phone;
 
     @NotNull
@@ -42,12 +51,14 @@ public class User extends AbstractAuditingEntity<Long> {
      * PII – encrypted long string
      */
     @Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
+    @EncryptedField
     private String firstName;
 
     /**
      * PII – encrypted long string
      */
     @Column(name = "last_name", nullable = false, columnDefinition = "TEXT")
+    @EncryptedField
     private String lastName;
 
     @NotNull
@@ -85,6 +96,19 @@ public class User extends AbstractAuditingEntity<Long> {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEmailHash() {
+        return this.emailHash;
+    }
+
+    public User emailHash(String emailHash) {
+        this.setEmailHash(emailHash);
+        return this;
+    }
+
+    public void setEmailHash(String emailHash) {
+        this.emailHash = emailHash;
     }
 
     public String getPhone() {

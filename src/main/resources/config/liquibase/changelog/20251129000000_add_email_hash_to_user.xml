@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--
+        Add email_hash column to users table for efficient lookups
+    -->
+    <changeSet id="20251129000000-1" author="claude">
+        <addColumn tableName="users">
+            <column name="email_hash" type="varchar(64)" remarks="SHA-256 hash of email for efficient lookup">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!--
+        Add unique constraint and index on email_hash
+    -->
+    <changeSet id="20251129000000-2" author="claude">
+        <addUniqueConstraint tableName="users" columnNames="email_hash" constraintName="ux_user_email_hash"/>
+        <createIndex indexName="idx_user_email_hash" tableName="users">
+            <column name="email_hash"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
     Optional<User> findByEmail(String email);
 
+    Optional<User> findByEmailHash(String emailHash);
+
     Optional<User> findByEmailAndTenantId(String email, Long tenantId);
 
     List<User> findByTenantId(Long tenantId);
