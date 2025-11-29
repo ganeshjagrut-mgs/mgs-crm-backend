@@ -24,36 +24,31 @@ public class Contact extends AbstractAuditingEntity<Long> {
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", nullable = false, columnDefinition = "TEXT")
     private String firstName;
 
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name", nullable = false, columnDefinition = "TEXT")
     private String lastName;
 
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "email")
+    @Column(name = "email", columnDefinition = "TEXT")
     private String email;
 
     /**
      * PII – encrypted long string
      */
-    @Lob
-    @Column(name = "phone")
+    @Column(name = "phone", columnDefinition = "TEXT")
     private String phone;
 
     /**
      * May contain PII – encrypted long string
      */
-    @Lob
-    @Column(name = "notes")
+    @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
 
     @ManyToOne(optional = false)
