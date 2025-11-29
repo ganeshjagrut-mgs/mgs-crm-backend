@@ -4,11 +4,15 @@ import static com.mgs.security.SecurityUtils.AUTHORITIES_CLAIM;
 import static com.mgs.security.SecurityUtils.JWT_ALGORITHM;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mgs.domain.Tenant;
+import com.mgs.domain.User;
+import com.mgs.repository.UserRepository;
 import com.mgs.web.rest.vm.LoginVM;
 import jakarta.validation.Valid;
 import java.security.Principal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,9 +50,16 @@ public class AuthenticateController {
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    public AuthenticateController(JwtEncoder jwtEncoder, AuthenticationManagerBuilder authenticationManagerBuilder) {
+    private final UserRepository userRepository;
+
+    public AuthenticateController(
+        JwtEncoder jwtEncoder,
+        AuthenticationManagerBuilder authenticationManagerBuilder,
+        UserRepository userRepository
+    ) {
         this.jwtEncoder = jwtEncoder;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/authenticate")
@@ -89,15 +100,30 @@ public class AuthenticateController {
             validity = now.plus(this.tokenValidityInSeconds, ChronoUnit.SECONDS);
         }
 
-        // @formatter:off
-        JwtClaimsSet.Builder builder = JwtClaimsSet.builder()
+        String login = authentication.getName();
+
+        // Load user and get tenant ID
+        Long tenantId = null;
+        Optional<User> userOpt = userRepository.findByEmail(login);
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            Tenant tenant = user.getTenant();
+            if (tenant != null) {
+                tenantId = tenant.getId();
+            }
+        }
+
+        JwtClaimsSet claims = JwtClaimsSet.builder()
             .issuedAt(now)
             .expiresAt(validity)
             .subject(authentication.getName())
-            .claim(AUTHORITIES_CLAIM, authorities);
+            .claim(AUTHORITIES_CLAIM, authorities)
+            .claim("tenant_id", tenantId)
+            .build();
 
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();
-        return this.jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, builder.build())).getTokenValue();
+        return this.jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).getTokenValue();
     }
 
     /**
